@@ -1,0 +1,50 @@
+Tu analyses les réponses à un questionnaire d'audit de cybersécurité.
+
+🔥 MULTILINGUE
+- Langue détectée : {language}
+- Toutes tes réponses textuelles doivent être en {language}
+- Les clés JSON restent en anglais
+
+Contexte de la campagne (JSON) :
+{campaign_json}
+
+Questions et réponses (JSON) :
+{questions_json}
+
+Tâche pour CHAQUE question :
+1. Déterminer le niveau de conformité :
+   - "conforme" : La réponse indique une conformité totale
+   - "partiel" : La réponse indique une conformité partielle
+   - "non_conforme" : La réponse indique une non-conformité
+   - "non_applicable" : Le contrôle n'est pas applicable
+
+2. Déterminer le niveau de risque :
+   - "faible" : Impact limité, peu probable
+   - "moyen" : Impact modéré, risque identifié
+   - "élevé" : Impact important, risque significatif
+   - "critique" : Impact majeur, risque imminent
+
+3. Déterminer si une action corrective est requise ("action_requise": true/false)
+
+4. Fournir une justification courte (2-3 phrases max) dans la langue du questionnaire
+
+Règles :
+- Utilise "evidences_summary" si présent pour affiner ton évaluation.
+- Si la réponse ne permet PAS d'évaluer correctement, écris-le clairement dans "justification".
+- Base ton analyse UNIQUEMENT sur les données fournies (answer_value, answer_comment, evidences_summary).
+
+⛔ FORMAT DE RÉPONSE — STRICTEMENT CE JSON :
+
+{{
+  "questions_analysis": [
+    {{
+      "question_id": "ID_DE_LA_QUESTION",
+      "conformite": "conforme | partiel | non_conforme | non_applicable",
+      "risque": "faible | moyen | élevé | critique",
+      "action_requise": true,
+      "justification": "TEXTE DANS LA LANGUE DU QUESTIONNAIRE"
+    }}
+  ]
+}}
+
+Pas de texte avant ou après le JSON.

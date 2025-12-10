@@ -1,0 +1,14 @@
+# Dépendances pour l'intégration Keycloak
+
+# Client HTTP async pour communiquer avec Keycloak
+httpx>=0.25.0
+
+# JWT - Pour valider et décoder les tokens Keycloak
+PyJWT[crypto]>=2.8.0
+cryptography>=41.0.0
+
+# Pour récupérer les clés publiques JWKS de Keycloak
+python-jose[cryptography]>=3.3.0
+
+# Optionnel: Client Python officiel Keycloak (si besoin de fonctionnalités avancées)
+# python-keycloak>=3.7.0

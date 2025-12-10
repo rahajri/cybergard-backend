@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relance – Accédez à votre audit</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #6366f1;
+            margin-bottom: 30px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #6366f1;
+            margin-bottom: 10px;
+        }
+        .title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #1f2937;
+            margin: 20px 0;
+        }
+        .subtitle {
+            font-size: 18px;
+            color: #6366f1;
+            margin: 15px 0;
+            font-weight: 600;
+        }
+        .content {
+            margin: 20px 0;
+            color: #4b5563;
+        }
+        .reminder-box {
+            background-color: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .cta-button {
+            display: inline-block;
+            background-color: #6366f1;
+            color: white;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            margin: 25px 0;
+            text-align: center;
+        }
+        .cta-button:hover {
+            background-color: #4f46e5;
+        }
+        .info-box {
+            background-color: #eff6ff;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        .info-box h3 {
+            color: #1e40af;
+            margin-top: 0;
+            font-size: 16px;
+        }
+        .info-item {
+            margin: 12px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        .info-item:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: bold;
+        }
+        .help-box {
+            background-color: #f3f4f6;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .help-box h3 {
+            color: #374151;
+            margin-top: 0;
+            font-size: 14px;
+        }
+        .link-url {
+            word-break: break-all;
+            background-color: #f9fafb;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #e5e7eb;
+            font-family: monospace;
+            font-size: 12px;
+            margin: 10px 0;
+        }
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 12px;
+            color: #6b7280;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">CYBERGARD AI</div>
+        </div>
+
+        <h1 class="title">🔄 Relance – Participation à votre audit</h1>
+        <h2 class="subtitle">{{ referentiel_name }}</h2>
+
+        <div class="content">
+            <p>Bonjour <strong>{{ audite_firstname }} {{ audite_lastname }}</strong>,</p>
+
+            <p>Vous avez été invité à participer à l'audit de conformité <strong>{{ referentiel_name }}</strong> pour l'entité <strong>{{ entity_name }}</strong>.</p>
+
+            <div class="reminder-box">
+                <strong>📊 Nous constatons que votre audit n'a pas encore été complété.</strong><br>
+                Vous pouvez reprendre à tout moment votre questionnaire via le bouton ci-dessous :
+            </div>
+
+            <div style="text-align: center;">
+                <a href="{{ magic_link }}" class="cta-button">
+                    🔄 Accéder à mon audit
+                </a>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h3>📌 Informations utiles</h3>
+            <div class="info-item"><strong>Lien personnel</strong> : Ce lien est strictement personnel, unique et réservé à votre usage.</div>
+            <div class="info-item"><strong>Validité du lien</strong> : Votre lien reste actif jusqu'au {{ expiration_date }}.</div>
+            <div class="info-item"><strong>Audit en plusieurs fois</strong> : Vous pouvez compléter votre audit progressivement, autant de fois que nécessaire.</div>
+            <div class="info-item"><strong>Sauvegarde automatique</strong> : Vos réponses sont enregistrées en temps réel.</div>
+            <div class="info-item"><strong>Confidentialité</strong> : Vos données restent protégées et confidentielles.</div>
+        </div>
+
+        <div class="help-box">
+            <h3>❓ Le bouton ne fonctionne pas ?</h3>
+            <p>Copiez-collez ce lien directement dans votre navigateur :</p>
+            <div class="link-url">{{ magic_link }}</div>
+        </div>
+
+        <div class="content">
+            <p><strong>Besoin d'aide ?</strong></p>
+            <p>Notre équipe support reste à votre disposition pour toute question concernant cet audit.</p>
+            <p>📧 Email : <a href="mailto:support@cybergard.ai">support@cybergard.ai</a></p>
+        </div>
+
+        <div class="footer">
+            <p>Cet email a été envoyé par <strong>CYBERGARD AI</strong></p>
+            <p>Plateforme d'audit cybersécurité multi-référentiels</p>
+            <p style="margin-top: 15px; color: #9ca3af;">
+                © 2025 CYBERGARD AI. Tous droits réservés.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

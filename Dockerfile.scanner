@@ -1,0 +1,177 @@
+# ============================================================================
+# SCANNER WORKER DOCKERFILE - CyberGuard AI
+# ============================================================================
+# Image spécialisée pour le module Scan Externe (ASM)
+# Contient: nmap, sslyze, Celery worker
+#
+# Usage:
+#   docker build -f Dockerfile.scanner -t cyberguard-scanner:latest .
+#   docker-compose up scanner-worker
+#
+# ============================================================================
+
+# ============================================================================
+# ARGUMENTS
+# ============================================================================
+ARG PYTHON_VERSION=3.11
+
+# ============================================================================
+# STAGE 1: BUILDER
+# ============================================================================
+FROM python:${PYTHON_VERSION}-slim as builder
+
+LABEL maintainer="CyberGuard AI Team"
+LABEL description="Scanner Worker for External ASM Scans"
+
+# Variables d'environnement Python
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+# Dépendances système pour compilation
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    gcc \
+    g++ \
+    libpq-dev \
+    libffi-dev \
+    libssl-dev \
+    curl \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Environnement virtuel
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Dépendances Python pour le scanner
+WORKDIR /build
+
+# Créer un requirements spécifique pour le scanner
+RUN pip install --no-cache-dir \
+    celery[redis]==5.3.6 \
+    redis==5.0.1 \
+    sqlalchemy==2.0.23 \
+    psycopg2-binary==2.9.9 \
+    pydantic==2.5.2 \
+    pydantic-settings==2.1.0 \
+    python-nmap==0.7.1 \
+    sslyze==6.0.0 \
+    cryptography>=41.0.0 \
+    httpx==0.26.0 \
+    aiohttp==3.9.1 \
+    tenacity==8.2.3 \
+    structlog==23.2.0 \
+    python-dateutil==2.8.2
+
+# ============================================================================
+# STAGE 2: RUNTIME
+# ============================================================================
+FROM python:${PYTHON_VERSION}-slim
+
+LABEL version="1.0"
+LABEL component="scanner-worker"
+
+# Variables d'environnement
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PATH="/opt/venv/bin:$PATH"
+
+# ============================================================================
+# INSTALLATION NMAP & SSLYZE DEPENDENCIES
+# ============================================================================
+# nmap: Scanner réseau (ports, services, OS detection)
+# sslyze: Audit TLS/SSL complet
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    # Runtime PostgreSQL
+    libpq5 \
+    # Nmap - Scanner réseau
+    nmap \
+    # Dépendances SSL pour sslyze
+    libssl3 \
+    ca-certificates \
+    # DNS tools
+    dnsutils \
+    # Curl pour healthcheck
+    curl \
+    # Netcat pour tests réseau
+    netcat-openbsd \
+    # libcap pour setcap (capabilities nmap)
+    libcap2-bin \
+    && rm -rf /var/lib/apt/lists/* \
+    # Vérifier installation nmap
+    && nmap --version
+
+# Créer utilisateur non-root
+# Note: nmap nécessite des capabilities spéciales pour certains scans
+RUN groupadd -r scanner && useradd -r -g scanner scanner
+
+# Copier l'environnement virtuel
+COPY --from=builder /opt/venv /opt/venv
+
+# Répertoire de travail
+WORKDIR /app
+
+# Créer les répertoires nécessaires
+RUN mkdir -p /app/logs /app/temp /app/scan_results \
+    && chown -R scanner:scanner /app
+
+# Copier le code de l'application
+# On copie seulement les modules nécessaires pour le scanner
+COPY --chown=scanner:scanner src/models /app/src/models
+COPY --chown=scanner:scanner src/schemas /app/src/schemas
+COPY --chown=scanner:scanner src/database.py /app/src/database.py
+COPY --chown=scanner:scanner src/config.py /app/src/config.py
+COPY --chown=scanner:scanner src/services/external_scanner /app/src/services/external_scanner
+COPY --chown=scanner:scanner src/tasks /app/src/tasks
+
+# Créer les __init__.py si manquants
+RUN touch /app/src/__init__.py \
+    && touch /app/src/models/__init__.py \
+    && touch /app/src/schemas/__init__.py \
+    && touch /app/src/services/__init__.py \
+    && touch /app/src/services/external_scanner/__init__.py \
+    && touch /app/src/tasks/__init__.py
+
+# Script d'entrée pour le worker
+COPY --chown=scanner:scanner docker/scanner-entrypoint.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
+
+# ============================================================================
+# CAPABILITIES NMAP
+# ============================================================================
+# Pour les scans SYN (plus rapides) et la détection d'OS, nmap a besoin de:
+# - CAP_NET_RAW: Pour les raw sockets
+# - CAP_NET_ADMIN: Pour manipulation réseau
+# - CAP_SETUID/SETGID: Pour l'élévation temporaire de privilèges
+#
+# À configurer AUSSI dans docker-compose avec:
+#   cap_add:
+#     - NET_RAW
+#     - NET_ADMIN
+#
+# Donner les capabilities à l'exécutable nmap pour permettre
+# la détection d'OS même en tant qu'utilisateur non-root
+RUN setcap cap_net_raw,cap_net_admin,cap_net_bind_service+eip /usr/bin/nmap || true
+
+# Healthcheck
+HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
+    CMD celery -A src.tasks.celery_app inspect ping -d celery@$HOSTNAME || exit 1
+
+# Utilisateur scanner (non-root mais avec capabilities)
+USER scanner
+
+# Variables d'environnement par défaut
+ENV CELERY_BROKER_URL=redis://redis:6379/1 \
+    CELERY_RESULT_BACKEND=redis://redis:6379/1 \
+    SCANNER_QUEUE=external_scan \
+    SCANNER_CONCURRENCY=2 \
+    LOG_LEVEL=INFO
+
+# Commande par défaut: Celery worker pour les scans externes
+CMD ["celery", "-A", "src.tasks.celery_app", "worker", \
+     "--queues=external_scan", \
+     "--concurrency=2", \
+     "--loglevel=INFO", \
+     "--hostname=scanner@%h"]

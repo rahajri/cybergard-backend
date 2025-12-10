@@ -1,0 +1,123 @@
+PHASE 3 : GÉNÉRATION DU PLAN D'ACTION CORRECTIF
+
+Tu es chargé de générer des actions correctives à partir d'une liste de non-conformités consolidées suite à l'audit.
+
+🚨 IMPORTANT - CAMPAGNE MULTI-ORGANISMES :
+- Il existe PLUSIEURS entités / organismes / unités / filiales dans cette campagne.
+- Chaque entité doit recevoir UNIQUEMENT ses propres actions.
+- Tu NE dois JAMAIS fusionner, regrouper ou mutualiser des actions entre plusieurs entités.
+- Pour chaque entité, tu génères ses actions de manière TOTALEMENT INDÉPENDANTE.
+- Même si deux entités présentent la MÊME non-conformité, tu dois produire DEUX actions distinctes (une par entité).
+
+Données d'entrée :
+{{nc_json}}
+
+Chaque non-conformité contient les champs suivants :
+- **entity_id** : UUID de l'entité concernée (OBLIGATOIRE - À recopier tel quel)
+- **entity_name** : Nom de l'entité concernée (ex: "Entité 1", "Entité 2") (OBLIGATOIRE - À recopier tel quel)
+- **requirement_code** : Identifiant du cluster (ex: "ISO-27001-A.5.1") - À utiliser dans source_clusters
+- **requirement_title** : Titre du requirement
+- **consolidated_description** : Description consolidée de la non-conformité
+- **root_cause** : Cause racine identifiée lors de la consolidation
+- **current_situation** : État actuel constaté
+- **gap_description** : Description précise de l'écart entre l'état actuel et attendu
+- **risk_score** : Score de risque (0-20)
+- **impact** : Impact si non traité (1-4)
+- **probability** : Probabilité d'occurrence (1-5)
+- **source_question_ids** : Array des IDs de questions sources (ces IDs seront automatiquement liés à l'action)
+- **domain_name** : Domaine concerné
+
+Instructions de génération :
+Pour chaque non-conformité, génère UNE action corrective qui :
+- Traite la CAUSE RACINE (utilise le champ `root_cause` fourni, pas juste les symptômes)
+- Tient compte de la SITUATION ACTUELLE (champ `current_situation`) et de l'ÉCART à combler (champ `gap_description`)
+- Est SMART : Spécifique, Mesurable, Atteignable, Réaliste, Temporelle
+- A des livrables concrets et vérifiables
+- Est assignée au rôle organisationnel approprié
+- A un délai réaliste basé sur la complexité et l'urgence
+
+Règles de consolidation PAR ENTITÉ :
+- Tu peux grouper plusieurs non-conformités similaires en une seule action UNIQUEMENT si elles concernent la MÊME entité (même entity_id)
+- NE JAMAIS consolider des actions entre entités différentes
+- Si une entité n'a aucune non-conformité → ne génère AUCUNE action pour cette entité
+
+🚨 OBLIGATOIRE - Copie EXACTE des champs d'entité :
+- Les champs "entity_id" et "entity_name" de chaque action doivent être EXACTEMENT copiés depuis la non-conformité source
+- NE PAS inventer de valeurs génériques comme "Organisation principale", "non-spécifié", ou "uuid-entité"
+- Utilise les VRAIES valeurs entity_id (UUID) et entity_name présentes dans les données d'entrée
+- Si tu groupes plusieurs NC de la MÊME entité, copie leur entity_id commun
+
+Mapping des rôles suggérés :
+- **RSSI** : Actions liées à la stratégie de sécurité, politique globale, gestion des risques
+- **DSI** : Actions techniques, infrastructure, architecture, projets IT
+- **DPO** : Actions RGPD, protection des données personnelles
+- **Directeur général** : Actions stratégiques, budget, gouvernance
+- **Responsable RH** : Actions sensibilisation, formation, recrutement
+- **Chef de projet** : Actions projets spécifiques, coordination transverse
+- **Auditeur** : Suivi, contrôle, validation (uniquement si aucun autre rôle approprié)
+
+Calcul du délai recommandé :
+- **Critical (risque > 15)** → P1 → 30 jours (urgence absolue)
+- **Major (risque 10-15)** → P1 ou P2 → 60 jours (important)
+- **Minor (risque 5-9)** → P2 ou P3 → 90 jours (standard)
+- **Info (risque < 5)** → P3 → 120 jours (amélioration continue)
+
+Ajuster selon la complexité :
+- Simple (politique, processus léger) : délai standard
+- Moyen (formation, outillage) : +30 jours
+- Complexe (projet, infrastructure) : +60 jours
+
+Format de sortie (JSON) :
+{
+  "action_plan_summary": {
+    "title": "Plan d'action correctif - {{campaign_title}}",
+    "overall_risk_level": "élevé|moyen|faible",
+    "total_actions": 10,
+    "global_justification": "Justification globale du plan en 2-3 phrases"
+  },
+  "actions": [
+    {
+      "local_id": "ACT-001",
+      "entity_id": "<COPIER L'UUID EXACT DEPUIS LES DONNÉES D'ENTRÉE>",
+      "entity_name": "<COPIER LE NOM EXACT DEPUIS LES DONNÉES D'ENTRÉE (ex: 'Entité 1', 'Entité 2')>",
+      "source_clusters": ["ISO-27001-A.5.1", "ISO-27001-A.5.2"],
+      "title": "Titre de l'action (max 100 caractères, orienté résultat)",
+      "description": "Description détaillée de l'action à mener (quoi, comment, pourquoi)",
+      "objective": "Objectif SMART de cette action",
+      "deliverables": [
+        "Livrable mesurable 1",
+        "Livrable mesurable 2",
+        "Livrable mesurable 3"
+      ],
+      "severity": "critical|major|minor|info",
+      "priority": "P1|P2|P3",
+      "recommended_due_days": 60,
+      "suggested_role": "RSSI|DSI|DPO|Directeur général|Responsable RH|Chef de projet",
+      "referential_controls": ["ISO-27001-A.5.1", "NIS2-ART.21"],
+      "justification": {
+        "why_action": "Pourquoi cette action est nécessaire ? Quelle problématique résout-elle ?",
+        "why_severity": "Pourquoi cette sévérité ? Quel est l'impact si non traité ?",
+        "why_priority": "Pourquoi cette priorité ? Qu'est-ce qui justifie l'urgence ?",
+        "why_role": "Pourquoi ce rôle ? Qui est le plus légitime et compétent ?",
+        "why_due_days": "Pourquoi ce délai ? Comment a-t-il été calculé ?"
+      }
+    }
+  ],
+  "statistics": {
+    "total": 10,
+    "critical_count": 2,
+    "major_count": 5,
+    "minor_count": 2,
+    "info_count": 1,
+    "overall_risk_level": "élevé"
+  }
+}
+
+IMPORTANT :
+- Réponds UNIQUEMENT avec le JSON, sans texte avant ou après
+- TOUTES les justifications doivent être remplies et pertinentes
+- Les actions doivent être CONCRÈTES et RÉALISABLES
+- Ne propose PAS d'actions génériques du type "Améliorer la sécurité"
+- Chaque action doit avoir un impact mesurable
+- **OBLIGATOIRE** : Le champ "source_clusters" doit contenir au moins un requirement_code (ex: ["ISO-27001-A.5.1"])
+- Tu peux regrouper plusieurs NCs similaires dans une même action en listant tous leurs requirement_code dans source_clusters

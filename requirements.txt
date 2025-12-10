@@ -1,0 +1,163 @@
+# ============================================================================
+# CORE FRAMEWORK
+# ============================================================================
+fastapi==0.116.2
+uvicorn[standard]==0.35.0
+starlette==0.48.0
+pydantic==2.11.9
+pydantic-settings==2.10.1
+pydantic_core==2.33.2
+email-validator==2.1.0
+python-multipart==0.0.20
+python-dotenv==1.0.0
+
+# ============================================================================
+# DATABASE
+# ============================================================================
+SQLAlchemy==2.0.23
+psycopg2-binary==2.9.9
+alembic==1.13.1
+asyncpg==0.28.0
+
+# ============================================================================
+# REDIS - Cache & Sessions
+# ============================================================================
+redis==5.0.1
+redis-om==0.3.5
+hiredis==2.3.2
+
+# ============================================================================
+# CELERY - Task Queue
+# ============================================================================
+celery==5.3.6
+
+# ============================================================================
+# SECURITY SCANNING (nmap seulement - sslyze dans Docker)
+# ============================================================================
+python-nmap==0.7.1
+# sslyze==6.0.0  # Installé uniquement dans le container Docker (conflits pydantic)
+
+# ============================================================================
+# AUTHENTICATION & SECURITY
+# ============================================================================
+PyJWT==2.10.1
+cryptography==44.0.2
+passlib[bcrypt]==1.7.4
+python-keycloak==3.8.0
+
+# ============================================================================
+# FILE STORAGE & PROCESSING
+# ============================================================================
+minio==7.2.3
+aiofiles==24.1.0
+python-magic==0.4.27
+clamd==1.0.2
+
+# Documents processing
+python-docx==1.2.0
+python-pptx==1.0.2
+PyPDF2==3.0.1
+PyMuPDF==1.26.1
+pdfplumber==0.11.7
+pdf2image==1.17.0
+openpyxl==3.1.5
+pandas==2.3.2
+
+# PDF Generation
+xhtml2pdf==0.2.16
+
+# ============================================================================
+# AI & NLP
+# ============================================================================
+# OpenAI & Anthropic
+openai==1.106.1
+anthropic==0.66.0
+instructor==1.11.2
+
+# Transformers & Models
+transformers==4.56.1
+sentence-transformers==2.2.2
+tokenizers==0.22.0
+tiktoken==0.9.0
+
+# Spacy
+spacy==3.8.2
+spacy-legacy==3.0.12
+spacy-loggers==1.0.5
+fr_core_news_md @ https://github.com/explosion/spacy-models/releases/download/fr_core_news_md-3.8.0/fr_core_news_md-3.8.0-py3-none-any.whl
+
+# Torch (CPU version)
+torch==2.6.0+cpu
+torchvision==0.21.0+cpu
+torchaudio==2.6.0+cpu
+
+# Hugging Face
+huggingface-hub==0.34.4
+
+# ============================================================================
+# HTTP & API CLIENTS
+# ============================================================================
+httpx==0.28.1
+httpcore==1.0.9
+httpx-sse==0.4.1
+aiohttp==3.11.13
+requests==2.32.5
+
+# ============================================================================
+# DATA PROCESSING & VALIDATION
+# ============================================================================
+numpy==1.26.4
+scipy==1.13.1
+scikit-learn==1.6.0
+joblib==1.4.2
+
+# ============================================================================
+# UTILITIES
+# ============================================================================
+python-dateutil==2.9.0.post0
+pytz==2024.2
+Faker==37.6.0
+click==8.1.7
+typer==0.15.1
+rich==13.9.4
+
+# Email
+Jinja2==3.1.4
+
+# YAML & Config
+PyYAML==6.0.2
+pydantic-yaml==1.6.0
+
+# ============================================================================
+# MONITORING & OBSERVABILITY
+# ============================================================================
+# Note: versions harmonisées - opentelemetry-instrumentation-anthropic/openai
+# ont été supprimés car ils créent des conflits de dépendances
+opentelemetry-api>=1.28.0
+opentelemetry-sdk>=1.28.0
+opentelemetry-instrumentation>=0.50b0
+opentelemetry-instrumentation-fastapi>=0.50b0
+# opentelemetry-instrumentation-anthropic==0.46.2  # Conflit avec fastapi instrumentation
+# opentelemetry-instrumentation-openai==0.46.2     # Conflit avec fastapi instrumentation
+
+# ============================================================================
+# DEVELOPMENT & TESTING
+# ============================================================================
+# pytest==7.4.3
+# pytest-asyncio==0.21.1
+# pytest-cov==4.1.0
+# httpx-mock==0.15.0
+
+# ============================================================================
+# OPTIONAL DEPENDENCIES
+# ============================================================================
+# OCR (si nécessaire)
+# pytesseract==0.3.13
+# easyocr==1.7.2
+
+# Document parsing (si nécessaire)
+# docling==2.51.0
+# docling-core==2.47.0
+
+# Streamlit (si nécessaire pour demo/admin)
+# streamlit==1.46.1

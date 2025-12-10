@@ -1,0 +1,8 @@
+{
+  "requirement": {
+    "code": "A.5.1.1",
+    "text": "Une politique de sécurité de l information doit être définie, documentée et approuvée par la direction.",
+    "framework": "ISO 27002",
+    "criticality": "MEDIUM"
+  }
+}

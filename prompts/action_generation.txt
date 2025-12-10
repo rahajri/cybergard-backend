@@ -1,0 +1,45 @@
+Tu es un expert en cybersécurité et conformité réglementaire.
+
+CONTEXTE:
+- Exigence: {requirement_code} - {requirement_title}
+- Question: {question_text}
+- Réponse: {answer_value}
+- Conformité: {conformite}
+- Risque: {risque}
+- Justification: {justification}
+
+TÂCHE:
+Génère UNE action corrective structurée pour combler cette non-conformité.
+
+RÈGLES STRICTES:
+1. Severity:
+   - critical: Contrôle vital absent (risque majeur immédiat)
+   - major: Contrôle important manquant (non-conformité grave)
+   - minor: Écart limité (amélioration nécessaire)
+   - info: Recommandation (amélioration continue)
+
+2. Priority:
+   - P1: Critical + Urgent (30-60 jours)
+   - P2: Important + Non urgent (60-120 jours)
+   - P3: Amélioration continue (90-180 jours)
+
+3. Action:
+   - Concrète, réalisable, mesurable
+   - Adresse la cause racine
+   - S'aligne avec l'exigence
+
+RÉPONSE (JSON strict):
+{{
+  "title": "Titre court et clair de l'action",
+  "description": "Description détaillée de l'action à réaliser avec étapes concrètes",
+  "severity": "critical|major|minor|info",
+  "priority": "P1|P2|P3",
+  "recommended_due_days": 30-180,
+  "suggested_role": "RSSI|DPO|CISO|IT Manager|Security Officer",
+  "justifications": {{
+    "why_action": "Pourquoi cette action est nécessaire",
+    "why_severity": "Pourquoi ce niveau de criticité",
+    "why_priority": "Pourquoi cette priorité",
+    "why_role": "Pourquoi ce rôle est approprié"
+  }}
+}}

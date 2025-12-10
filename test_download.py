@@ -1,0 +1,23 @@
+"""
+Test de téléchargement avec le bon ID
+"""
+import requests
+
+# Token existant du frontend
+token = "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJHSGF4eExZSHhBTWsxN2RQTGJKSE91Rm51V2VBZXdqd1NqMGJxOGlXS3QwIn0.eyJleHAiOjE3MzIxOTM1MzksImlhdCI6MTczMjE5MzIzOSwianRpIjoiOTdiYTNmNTktNzVmZS00M2RhLWE2M2YtNTJkOTM2NDJhOWY0IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9jeWJlcmd1YXJkIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6Ijk3OWVhMWY5LTM5YTQtNGFmZi1hMmFiLTNmOTlkNjhkYTI0NCIsInR5cCI6IkJlYXJlciIsImF6cCI6ImN5YmVyZ3VhcmQtZnJvbnRlbmQiLCJzaWQiOiI0ZjdjOTg5ZS1hNGU0LTQ5OWMtYmY3ZC00OGY5NTdkNGQzOTMiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiIsImRlZmF1bHQtcm9sZXMtY3liZXJndWFyZCJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsIm5hbWUiOiJNYXJ0aW4gRHVjZXB0IiwicHJlZmVycmVkX3VzZXJuYW1lIjoibWFydGluLmR1Y2VwdEBnbWFpbC5jb20iLCJnaXZlbl9uYW1lIjoiTWFydGluIiwiZmFtaWx5X25hbWUiOiJEdWNlcHQiLCJlbWFpbCI6Im1hcnRpbi5kdWNlcHRAZ21haWwuY29tIn0.Fm4SxXglBEf1RJPrYA0UjTdZYRpY-l6GyqmXGMITvEzwB3JbDdJJ-RGLT5yxcPMlmKo7h8pEzpPbBUKOV3vbHI3Kz8HJOHnOFXiXQJAO_k5a7P7PmBw_zH8RsXCGxaemTFTjpNYQCa3l2KpXBcGdDFAv-BRoTBTjdMaKE8oOMTOD5esDZvDZaUdWKjh5cXr9FjWThNSxPX9NJ17wqX0e2rAUXMQXJiPMSm7JiYB-MqVKbDxNRbzNgXFFPQONBPx_JKVnZuUo8fYQfMfPPuDrCoaUP4Y83P36S7VkLKwJ8cSL5xN8dG5gvJi7N_zr7VsMKn5J5cYfQYQXI5LGFw"
+
+# Test avec le bon ID et le bon chemin
+correct_id = "f77d2f69-a741-4895-bf52-81da653e61a1"
+url = f"http://localhost:8000/api/v1/attachments/attachments/{correct_id}/download"
+
+response = requests.get(
+    url,
+    headers={"Authorization": f"Bearer {token}"}
+)
+
+print(f"Status: {response.status_code}")
+print(f"Headers: {dict(response.headers)}")
+if response.status_code != 200:
+    print(f"Body: {response.text}")
+else:
+    print(f"File size: {len(response.content)} bytes")

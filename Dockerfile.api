@@ -1,0 +1,131 @@
+# ============================================================================
+# BACKEND API DOCKERFILE - CyberGuard AI
+# ============================================================================
+# Multi-stage build pour optimiser la taille de l'image finale
+# Stage 1: Builder - Installation des dépendances
+# Stage 2: Runtime - Image légère avec uniquement le nécessaire
+
+# ============================================================================
+# ARGUMENTS
+# ============================================================================
+ARG PYTHON_VERSION=3.11
+ARG ENV=production
+
+# ============================================================================
+# STAGE 1: BUILDER
+# ============================================================================
+FROM python:${PYTHON_VERSION}-slim as builder
+
+# Métadonnées
+LABEL maintainer="CyberGuard AI Team"
+LABEL description="FastAPI Backend for CyberGuard AI Audit Platform"
+
+# Variables d'environnement pour Python
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+# Installer les dépendances système nécessaires pour la compilation
+# Inclut les dépendances WeasyPrint/pycairo pour la génération PDF
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    gcc \
+    g++ \
+    libpq-dev \
+    libmagic1 \
+    curl \
+    git \
+    pkg-config \
+    # Dépendances pycairo (compilation)
+    libcairo2-dev \
+    # Dépendances WeasyPrint pour génération PDF
+    libpango-1.0-0 \
+    libpangocairo-1.0-0 \
+    libgdk-pixbuf-2.0-0 \
+    libffi-dev \
+    shared-mime-info \
+    && rm -rf /var/lib/apt/lists/*
+
+# Créer un environnement virtuel
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Copier les fichiers de requirements
+WORKDIR /build
+COPY requirements.txt .
+
+# Installer les dépendances Python (incluant PyTorch CPU)
+# Installer d'abord les dépendances PyTorch avec l'index CPU
+RUN pip install --no-cache-dir \
+    torch==2.6.0+cpu \
+    torchvision==0.21.0+cpu \
+    torchaudio==2.6.0+cpu \
+    --index-url https://download.pytorch.org/whl/cpu
+
+# Installer le reste des dépendances
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Télécharger le modèle spaCy français
+RUN python -m spacy download fr_core_news_md
+
+# ============================================================================
+# STAGE 2: RUNTIME
+# ============================================================================
+FROM python:${PYTHON_VERSION}-slim
+
+# Métadonnées
+LABEL version="1.0"
+LABEL env="${ENV}"
+
+# Variables d'environnement
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PATH="/opt/venv/bin:$PATH" \
+    ENV=${ENV}
+
+# Installer uniquement les dépendances runtime
+# Inclut les dépendances WeasyPrint/pycairo pour la génération PDF
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libpq5 \
+    libmagic1 \
+    curl \
+    # Dépendances runtime pycairo/WeasyPrint
+    libcairo2 \
+    libpango-1.0-0 \
+    libpangocairo-1.0-0 \
+    libgdk-pixbuf-2.0-0 \
+    shared-mime-info \
+    fonts-liberation \
+    && rm -rf /var/lib/apt/lists/*
+
+# Créer un utilisateur non-root pour la sécurité
+RUN groupadd -r appuser && useradd -r -g appuser appuser
+
+# Copier l'environnement virtuel depuis le builder
+COPY --from=builder /opt/venv /opt/venv
+
+# Créer les répertoires nécessaires
+WORKDIR /app
+RUN mkdir -p /app/logs /app/temp && \
+    chown -R appuser:appuser /app
+
+# Copier le code de l'application
+COPY --chown=appuser:appuser . .
+
+# Copier les migrations Alembic
+COPY --chown=appuser:appuser alembic.ini .
+COPY --chown=appuser:appuser alembic ./alembic
+
+# Exposer le port
+EXPOSE 8000
+
+# Passer à l'utilisateur non-root
+USER appuser
+
+# Healthcheck
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+    CMD curl -f http://localhost:8000/health || exit 1
+
+# Commande par défaut (peut être surchargée dans docker-compose.yml)
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]

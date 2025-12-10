@@ -1,0 +1,152 @@
+services:
+
+  audit_postgres:
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+
+    image: audit_postgres:local
+    container_name: audit_postgres
+    restart: unless-stopped
+
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+    volumes:
+      - backend_pg_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  ollama:
+    image: ollama/ollama:0.12.0
+    container_name: ollama
+    restart: unless-stopped
+
+    ports:
+      - "11434:11434"
+
+    volumes:
+      - ollama_data:/root/.ollama
+
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://127.0.0.1:11434/api/tags"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+
+  minio:
+    image: minio/minio:latest
+    container_name: audit-minio
+    hostname: audit-minio
+    restart: unless-stopped
+
+    ports:
+      - "9000:9000"      # API
+      - "9001:9001"      # Console Web UI
+
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minioadmin123}
+      # Chiffrement server-side (SSE-S3) - À activer en production
+      # MINIO_KMS_SECRET_KEY: ${MINIO_KMS_SECRET_KEY:-my-key:base64key32bytes}
+      # URL du serveur MinIO (permet d'accepter le hostname Docker)
+      MINIO_SERVER_URL: http://audit-minio:9000
+
+    volumes:
+      - minio_data:/data
+      - minio_config:/root/.minio
+
+    command: server /data --console-address ":9001"
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  # ClamAV pour scan antivirus (optionnel mais recommandé)
+  clamav:
+    image: clamav/clamav:latest
+    container_name: audit_clamav
+    restart: unless-stopped
+
+    ports:
+      - "3310:3310"
+
+    volumes:
+      - clamav_data:/var/lib/clamav
+
+    healthcheck:
+      test: ["CMD", "/usr/local/bin/clamd", "--ping"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+
+    environment:
+      # Mise à jour automatique des signatures
+      CLAMAV_NO_FRESHCLAM: "false"
+
+  # Redis pour cache et sessions (optimisé pour performance)
+  redis:
+    image: redis:7-alpine
+    container_name: audit_redis
+    restart: unless-stopped
+
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+
+    command: >
+      redis-server
+      --maxmemory ${REDIS_MAX_MEMORY_DOCKER:-256mb}
+      --maxmemory-policy allkeys-lru
+      --appendonly yes
+      --appendfsync everysec
+      --save 900 1
+      --save 300 10
+      --save 60 10000
+      --tcp-backlog 511
+      --timeout 0
+      --tcp-keepalive 300
+      --loglevel notice
+      --io-threads 4
+      --io-threads-do-reads yes
+
+    volumes:
+      - redis_data:/data
+
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+    environment:
+      REDIS_REPLICATION_MODE: master
+
+
+volumes:
+  # Volume BDD existant : on déclare qu'il est externe (déjà créé)
+  backend_pg_data:
+    external: true
+
+  # Volume local pour le cache/metadata d'Ollama (créé si absent)
+  ollama_data:
+
+  # Volumes MinIO (stockage chiffré des pièces jointes)
+  minio_data:
+  minio_config:
+
+  # Volume ClamAV (base de signatures antivirus)
+  clamav_data:
+
+  # Volume Redis (cache et persistence)
+  redis_data:
