@@ -1,0 +1,231 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "source": "ANSSI - Guide EBIOS Risk Manager 2024 + Fiches Méthodes (Fiche 3)",
+    "description": "Référentiel des événements redoutés types selon la méthode EBIOS RM. Un ER est associé à une valeur métier et traduit une atteinte préjudiciable.",
+    "created_at": "2025-01-01",
+    "table_name": "ref_ebios_er"
+  },
+  "echelle_gravite": [
+    {
+      "niveau": 1,
+      "code": "G1",
+      "label": "Mineure",
+      "description": "Aucun impact opérationnel ni sur les performances. L'organisation surmonte la situation sans difficulté (consommation des marges)."
+    },
+    {
+      "niveau": 2,
+      "code": "G2",
+      "label": "Significative",
+      "description": "Dégradation des performances sans impact sur la sécurité des personnes. Fonctionnement en mode dégradé avec quelques difficultés."
+    },
+    {
+      "niveau": 3,
+      "code": "G3",
+      "label": "Grave",
+      "description": "Forte dégradation des performances avec impacts significatifs possibles sur la sécurité. Fonctionnement très dégradé, sérieuses difficultés."
+    },
+    {
+      "niveau": 4,
+      "code": "G4",
+      "label": "Critique",
+      "description": "Incapacité d'assurer tout ou partie de l'activité avec impacts graves possibles. Survie de l'organisation menacée."
+    }
+  ],
+  "categories_impacts": [
+    {
+      "id": "IMP_MISSION",
+      "label": "Impacts sur les missions et services",
+      "exemples": ["Incapacité à fournir un service", "Dégradation de performances", "Retards", "Impacts production"]
+    },
+    {
+      "id": "IMP_HUMAIN",
+      "label": "Impacts humains, matériels ou environnementaux",
+      "exemples": ["Accidents", "Mise en danger", "Dégâts matériels", "Pollution"]
+    },
+    {
+      "id": "IMP_GOUVERNANCE",
+      "label": "Impacts sur la gouvernance",
+      "exemples": ["Perte de contrôle", "Défaillance pilotage", "Non-conformité"]
+    },
+    {
+      "id": "IMP_FINANCIER",
+      "label": "Impacts financiers",
+      "exemples": ["Pertes directes", "Amendes", "Coûts de remédiation", "Perte de CA"]
+    },
+    {
+      "id": "IMP_JURIDIQUE",
+      "label": "Impacts juridiques",
+      "exemples": ["Contentieux", "Sanctions", "Non-conformité réglementaire"]
+    },
+    {
+      "id": "IMP_IMAGE",
+      "label": "Impacts sur l'image et la confiance",
+      "exemples": ["Atteinte réputation", "Perte de confiance", "Couverture médiatique négative"]
+    }
+  ],
+  "evenements_redoutes": [
+    {
+      "id": "ER_INDISPO_SERVICE",
+      "label": "Indisponibilité d'un service critique",
+      "description": "Interruption totale ou partielle d'un service essentiel empêchant la réalisation des missions.",
+      "critere_atteint": "DISPONIBILITE",
+      "gravite_default": 3,
+      "impacts_types": ["IMP_MISSION", "IMP_FINANCIER", "IMP_IMAGE"],
+      "tags": ["indisponibilité", "interruption", "service"]
+    },
+    {
+      "id": "ER_INDISPO_PRODUCTION",
+      "label": "Arrêt de la production",
+      "description": "Interruption des processus de production ou de fabrication.",
+      "critere_atteint": "DISPONIBILITE",
+      "gravite_default": 4,
+      "impacts_types": ["IMP_MISSION", "IMP_FINANCIER"],
+      "tags": ["production", "arrêt", "industrie"]
+    },
+    {
+      "id": "ER_FUITE_DONNEES_PERSO",
+      "label": "Fuite de données personnelles",
+      "description": "Divulgation non autorisée de données à caractère personnel (clients, employés).",
+      "critere_atteint": "CONFIDENTIALITE",
+      "gravite_default": 3,
+      "impacts_types": ["IMP_JURIDIQUE", "IMP_IMAGE", "IMP_FINANCIER"],
+      "tags": ["fuite", "données-personnelles", "RGPD", "violation"]
+    },
+    {
+      "id": "ER_FUITE_DONNEES_SENSIBLES",
+      "label": "Fuite d'informations sensibles",
+      "description": "Divulgation d'informations stratégiques, commerciales ou de R&D.",
+      "critere_atteint": "CONFIDENTIALITE",
+      "gravite_default": 4,
+      "impacts_types": ["IMP_FINANCIER", "IMP_MISSION"],
+      "tags": ["fuite", "espionnage", "confidentialité", "R&D"]
+    },
+    {
+      "id": "ER_VOL_PI",
+      "label": "Vol de propriété intellectuelle",
+      "description": "Exfiltration de brevets, formules, code source ou autres actifs de PI.",
+      "critere_atteint": "CONFIDENTIALITE",
+      "gravite_default": 4,
+      "impacts_types": ["IMP_FINANCIER", "IMP_JURIDIQUE"],
+      "tags": ["vol", "PI", "brevets", "espionnage"]
+    },
+    {
+      "id": "ER_MODIFICATION_DONNEES",
+      "label": "Modification illégitime de données",
+      "description": "Altération, falsification ou corruption de données critiques.",
+      "critere_atteint": "INTEGRITE",
+      "gravite_default": 3,
+      "impacts_types": ["IMP_MISSION", "IMP_JURIDIQUE"],
+      "tags": ["intégrité", "falsification", "corruption"]
+    },
+    {
+      "id": "ER_MODIFICATION_PROCESSUS",
+      "label": "Altération d'un processus critique",
+      "description": "Détournement ou modification d'un processus métier (ex: seuils industriels).",
+      "critere_atteint": "INTEGRITE",
+      "gravite_default": 4,
+      "impacts_types": ["IMP_MISSION", "IMP_HUMAIN"],
+      "tags": ["processus", "sabotage", "intégrité"]
+    },
+    {
+      "id": "ER_RANSOMWARE",
+      "label": "Chiffrement des données (ransomware)",
+      "description": "Chiffrement malveillant des données rendant le SI inutilisable.",
+      "critere_atteint": "DISPONIBILITE",
+      "gravite_default": 4,
+      "impacts_types": ["IMP_MISSION", "IMP_FINANCIER"],
+      "tags": ["ransomware", "chiffrement", "extorsion"]
+    },
+    {
+      "id": "ER_USURPATION_IDENTITE",
+      "label": "Usurpation d'identité",
+      "description": "Utilisation frauduleuse de l'identité d'un utilisateur ou du système.",
+      "critere_atteint": "INTEGRITE",
+      "gravite_default": 3,
+      "impacts_types": ["IMP_JURIDIQUE", "IMP_FINANCIER", "IMP_IMAGE"],
+      "tags": ["usurpation", "fraude", "identité"]
+    },
+    {
+      "id": "ER_PERTE_TRACABILITE",
+      "label": "Perte de traçabilité",
+      "description": "Impossibilité de tracer les actions ou modifications effectuées.",
+      "critere_atteint": "TRACABILITE",
+      "gravite_default": 2,
+      "impacts_types": ["IMP_GOUVERNANCE", "IMP_JURIDIQUE"],
+      "tags": ["traçabilité", "audit", "logs"]
+    },
+    {
+      "id": "ER_DEFIGURATION",
+      "label": "Défiguration de site web",
+      "description": "Modification de l'apparence d'un site web à des fins de propagande.",
+      "critere_atteint": "INTEGRITE",
+      "gravite_default": 2,
+      "impacts_types": ["IMP_IMAGE"],
+      "tags": ["défiguration", "web", "hacktivisme"]
+    },
+    {
+      "id": "ER_DENI_SERVICE",
+      "label": "Déni de service (DDoS)",
+      "description": "Attaque rendant indisponibles les services en ligne.",
+      "critere_atteint": "DISPONIBILITE",
+      "gravite_default": 3,
+      "impacts_types": ["IMP_MISSION", "IMP_FINANCIER"],
+      "tags": ["DDoS", "indisponibilité", "saturation"]
+    },
+    {
+      "id": "ER_COMPROMISSION_SI",
+      "label": "Compromission du SI",
+      "description": "Prise de contrôle partielle ou totale du système d'information.",
+      "critere_atteint": "INTEGRITE",
+      "gravite_default": 4,
+      "impacts_types": ["IMP_MISSION", "IMP_GOUVERNANCE"],
+      "tags": ["compromission", "intrusion", "APT"]
+    },
+    {
+      "id": "ER_ATTEINTE_IMAGE",
+      "label": "Atteinte à l'image et la réputation",
+      "description": "Dommage à la réputation suite à un incident de sécurité.",
+      "critere_atteint": "INTEGRITE",
+      "gravite_default": 3,
+      "impacts_types": ["IMP_IMAGE", "IMP_FINANCIER"],
+      "tags": ["réputation", "image", "médias"]
+    },
+    {
+      "id": "ER_NON_CONFORMITE",
+      "label": "Non-conformité réglementaire",
+      "description": "Violation d'obligations légales ou réglementaires (RGPD, NIS2, etc.).",
+      "critere_atteint": "INTEGRITE",
+      "gravite_default": 3,
+      "impacts_types": ["IMP_JURIDIQUE", "IMP_FINANCIER"],
+      "tags": ["conformité", "RGPD", "sanctions"]
+    },
+    {
+      "id": "ER_FRAUDE",
+      "label": "Fraude financière",
+      "description": "Détournement de fonds ou escroquerie (fraude au président, etc.).",
+      "critere_atteint": "INTEGRITE",
+      "gravite_default": 3,
+      "impacts_types": ["IMP_FINANCIER", "IMP_JURIDIQUE"],
+      "tags": ["fraude", "escroquerie", "détournement"]
+    },
+    {
+      "id": "ER_ATTEINTE_PHYSIQUE",
+      "label": "Atteinte à la sécurité des personnes",
+      "description": "Mise en danger physique de personnes suite à un incident cyber.",
+      "critere_atteint": "DISPONIBILITE",
+      "gravite_default": 4,
+      "impacts_types": ["IMP_HUMAIN", "IMP_JURIDIQUE"],
+      "tags": ["sécurité", "personnes", "sûreté"]
+    },
+    {
+      "id": "ER_SUPPLY_CHAIN",
+      "label": "Compromission via la supply chain",
+      "description": "Attaque par rebond via un fournisseur ou prestataire compromis.",
+      "critere_atteint": "INTEGRITE",
+      "gravite_default": 4,
+      "impacts_types": ["IMP_MISSION", "IMP_GOUVERNANCE"],
+      "tags": ["supply-chain", "tiers", "rebond"]
+    }
+  ]
+}

@@ -1,0 +1,169 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "source": "ANSSI - Guide EBIOS Risk Manager 2024 + Fiches Méthodes",
+    "description": "Référentiel des valeurs métier types selon la méthode EBIOS RM. Les valeurs métier représentent le patrimoine informationnel à protéger.",
+    "created_at": "2025-01-01",
+    "table_name": "ref_ebios_vm",
+    "note": "Les valeurs métier peuvent être de nature PROCESSUS ou INFORMATION"
+  },
+  "categories": [
+    {
+      "id": "CAT_SERVICE",
+      "label": "Services",
+      "description": "Services délivrés par l'organisation"
+    },
+    {
+      "id": "CAT_PROCESSUS",
+      "label": "Processus",
+      "description": "Processus métier critiques"
+    },
+    {
+      "id": "CAT_INFORMATION",
+      "label": "Informations",
+      "description": "Données et informations sensibles"
+    },
+    {
+      "id": "CAT_SAVOIR_FAIRE",
+      "label": "Savoir-faire",
+      "description": "Compétences et connaissances clés"
+    }
+  ],
+  "valeurs_metier": [
+    {
+      "id": "VM_SERVICE_CLIENT",
+      "label": "Service aux clients",
+      "nature": "PROCESSUS",
+      "description": "Capacité à délivrer les services ou produits aux clients dans les conditions attendues (qualité, délai, disponibilité).",
+      "exemples": ["Service en ligne", "Plateforme e-commerce", "Support client", "Portail client"],
+      "besoins_securite": ["Disponibilité", "Intégrité", "Confidentialité"],
+      "tags": ["service", "client", "disponibilité"]
+    },
+    {
+      "id": "VM_PRODUCTION",
+      "label": "Production / Fabrication",
+      "nature": "PROCESSUS",
+      "description": "Processus de production industrielle ou de fabrication de biens.",
+      "exemples": ["Chaîne de production", "Fabrication de produits", "Assemblage", "Conditionnement"],
+      "besoins_securite": ["Disponibilité", "Intégrité"],
+      "tags": ["production", "industrie", "fabrication"]
+    },
+    {
+      "id": "VM_RD",
+      "label": "Recherche et Développement",
+      "nature": "PROCESSUS",
+      "description": "Activités de recherche, innovation et développement de nouveaux produits ou services.",
+      "exemples": ["Recherche fondamentale", "Développement produit", "Prototypage", "Tests"],
+      "besoins_securite": ["Confidentialité", "Intégrité"],
+      "tags": ["R&D", "innovation", "propriété-intellectuelle"]
+    },
+    {
+      "id": "VM_DONNEES_CLIENTS",
+      "label": "Données clients",
+      "nature": "INFORMATION",
+      "description": "Informations relatives aux clients : identité, coordonnées, historique, préférences.",
+      "exemples": ["Fichier clients", "Historique commandes", "Données de facturation"],
+      "besoins_securite": ["Confidentialité", "Intégrité", "Conformité RGPD"],
+      "tags": ["données-personnelles", "RGPD", "clients"]
+    },
+    {
+      "id": "VM_DONNEES_PERSONNELLES",
+      "label": "Données à caractère personnel",
+      "nature": "INFORMATION",
+      "description": "Données personnelles des collaborateurs, clients ou partenaires soumises au RGPD.",
+      "exemples": ["Données RH", "Données santé", "Données bancaires", "Identifiants"],
+      "besoins_securite": ["Confidentialité", "Intégrité", "Traçabilité", "Conformité RGPD"],
+      "tags": ["RGPD", "vie-privée", "données-sensibles"]
+    },
+    {
+      "id": "VM_DONNEES_FINANCIERES",
+      "label": "Données financières",
+      "nature": "INFORMATION",
+      "description": "Informations financières et comptables de l'organisation.",
+      "exemples": ["Comptabilité", "Trésorerie", "Budgets", "Prévisions financières"],
+      "besoins_securite": ["Confidentialité", "Intégrité", "Traçabilité"],
+      "tags": ["finance", "comptabilité", "sensible"]
+    },
+    {
+      "id": "VM_SECRETS_AFFAIRES",
+      "label": "Secrets d'affaires",
+      "nature": "INFORMATION",
+      "description": "Informations stratégiques confidentielles à haute valeur commerciale.",
+      "exemples": ["Stratégie commerciale", "Plans de développement", "Informations M&A"],
+      "besoins_securite": ["Confidentialité"],
+      "tags": ["stratégie", "confidentiel", "compétitif"]
+    },
+    {
+      "id": "VM_PROPRIETE_INTELLECTUELLE",
+      "label": "Propriété intellectuelle",
+      "nature": "INFORMATION",
+      "description": "Brevets, marques, dessins, modèles et autres actifs de propriété intellectuelle.",
+      "exemples": ["Brevets", "Formules", "Designs", "Code source", "Algorithmes"],
+      "besoins_securite": ["Confidentialité", "Intégrité"],
+      "tags": ["PI", "brevets", "innovation"]
+    },
+    {
+      "id": "VM_SAVOIR_FAIRE",
+      "label": "Savoir-faire métier",
+      "nature": "SAVOIR_FAIRE",
+      "description": "Compétences et connaissances spécifiques constituant un avantage concurrentiel.",
+      "exemples": ["Expertise technique", "Méthodes de fabrication", "Procédés", "Recettes"],
+      "besoins_securite": ["Confidentialité"],
+      "tags": ["expertise", "compétences", "métier"]
+    },
+    {
+      "id": "VM_CONTINUITE_ACTIVITE",
+      "label": "Continuité d'activité",
+      "nature": "PROCESSUS",
+      "description": "Capacité à maintenir les activités essentielles en cas d'incident majeur.",
+      "exemples": ["PCA", "PRA", "Processus critiques", "Services essentiels"],
+      "besoins_securite": ["Disponibilité"],
+      "tags": ["PCA", "résilience", "continuité"]
+    },
+    {
+      "id": "VM_IMAGE_REPUTATION",
+      "label": "Image et réputation",
+      "nature": "INFORMATION",
+      "description": "Réputation de l'organisation, confiance des parties prenantes, image de marque.",
+      "exemples": ["Marque", "Notoriété", "Relations publiques", "Confiance clients"],
+      "besoins_securite": ["Intégrité", "Disponibilité"],
+      "tags": ["réputation", "marque", "confiance"]
+    },
+    {
+      "id": "VM_CONFORMITE",
+      "label": "Conformité réglementaire",
+      "nature": "PROCESSUS",
+      "description": "Capacité à respecter les obligations légales et réglementaires.",
+      "exemples": ["Conformité RGPD", "Conformité sectorielle", "Obligations légales"],
+      "besoins_securite": ["Intégrité", "Traçabilité"],
+      "tags": ["conformité", "réglementation", "audit"]
+    },
+    {
+      "id": "VM_TRACABILITE",
+      "label": "Traçabilité et contrôle",
+      "nature": "INFORMATION",
+      "description": "Capacité à tracer les opérations et assurer le contrôle qualité.",
+      "exemples": ["Journaux d'audit", "Contrôle qualité", "Suivi de production", "Métrologie"],
+      "besoins_securite": ["Intégrité", "Traçabilité", "Disponibilité"],
+      "tags": ["traçabilité", "audit", "qualité"]
+    },
+    {
+      "id": "VM_COMMUNICATION",
+      "label": "Communications",
+      "nature": "PROCESSUS",
+      "description": "Capacité à communiquer en interne et avec l'extérieur.",
+      "exemples": ["Messagerie", "Téléphonie", "Visioconférence", "Collaboration"],
+      "besoins_securite": ["Disponibilité", "Confidentialité"],
+      "tags": ["communication", "collaboration", "échanges"]
+    },
+    {
+      "id": "VM_SUPPLY_CHAIN",
+      "label": "Chaîne d'approvisionnement",
+      "nature": "PROCESSUS",
+      "description": "Gestion des fournisseurs, approvisionnements et logistique.",
+      "exemples": ["Achats", "Logistique", "Stock", "Livraisons", "Relations fournisseurs"],
+      "besoins_securite": ["Disponibilité", "Intégrité"],
+      "tags": ["supply-chain", "fournisseurs", "logistique"]
+    }
+  ]
+}

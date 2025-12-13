@@ -1,0 +1,187 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "source": "ANSSI - Guide EBIOS Risk Manager 2024 + Fiches Méthodes (Fiche 2)",
+    "description": "Référentiel des biens supports types selon la méthode EBIOS RM",
+    "created_at": "2025-01-01",
+    "table_name": "ref_ebios_bs"
+  },
+  "categories": [
+    {
+      "id": "CAT_MATERIEL",
+      "label": "Matériels",
+      "description": "Composants physiques du système d'information"
+    },
+    {
+      "id": "CAT_LOGICIEL",
+      "label": "Logiciels",
+      "description": "Applications et services logiciels"
+    },
+    {
+      "id": "CAT_RESEAU",
+      "label": "Réseaux",
+      "description": "Infrastructures de communication"
+    },
+    {
+      "id": "CAT_ORGANISATION",
+      "label": "Organisation",
+      "description": "Structures organisationnelles et processus"
+    },
+    {
+      "id": "CAT_HUMAIN",
+      "label": "Personnel",
+      "description": "Ressources humaines"
+    },
+    {
+      "id": "CAT_LOCAUX",
+      "label": "Locaux",
+      "description": "Infrastructures physiques et sites"
+    }
+  ],
+  "biens_supports": [
+    {
+      "id": "BS_TERMINAL",
+      "label": "Terminal utilisateur",
+      "type": "MATERIEL",
+      "description": "Ordinateur fixe, ordinateur portable, tablette, téléphone mobile utilisés par les collaborateurs pour accéder aux ressources du SI.",
+      "exemples": ["Ordinateur fixe", "Ordinateur portable", "Tablette", "Smartphone"],
+      "tags": ["endpoint", "poste-travail", "mobile"]
+    },
+    {
+      "id": "BS_PERIPHERIQUE",
+      "label": "Périphérique",
+      "type": "MATERIEL",
+      "description": "Équipements connectés aux terminaux ou au réseau pour des fonctions spécifiques.",
+      "exemples": ["Imprimante", "Scanner", "Clavier", "Souris", "Caméra", "Microphone", "Objet connecté"],
+      "tags": ["IoT", "périphérique", "impression"]
+    },
+    {
+      "id": "BS_TELEPHONE",
+      "label": "Téléphone",
+      "type": "MATERIEL",
+      "description": "Équipements de téléphonie fixe ou mobile, analogique ou IP.",
+      "exemples": ["Téléphone fixe analogique", "Téléphone IP", "Téléphone mobile"],
+      "tags": ["téléphonie", "VoIP", "communication"]
+    },
+    {
+      "id": "BS_STOCKAGE",
+      "label": "Équipement de stockage",
+      "type": "MATERIEL",
+      "description": "Supports de stockage amovibles ou fixes pour le transport ou la sauvegarde de données.",
+      "exemples": ["Clé USB", "Disque dur externe", "CD-ROM", "Carte mémoire", "NAS"],
+      "tags": ["stockage", "amovible", "sauvegarde"]
+    },
+    {
+      "id": "BS_SERVEUR",
+      "label": "Serveur",
+      "type": "MATERIEL",
+      "description": "Serveurs physiques hébergeant les applications et données de l'organisation.",
+      "exemples": ["Mainframe", "Serveur lame", "Serveur rack", "Serveur tour"],
+      "tags": ["serveur", "hébergement", "datacenter"]
+    },
+    {
+      "id": "BS_ADMIN",
+      "label": "Moyen d'administration",
+      "type": "MATERIEL",
+      "description": "Équipements dédiés à l'administration des systèmes avec accès privilégiés.",
+      "exemples": ["Poste d'administration", "Serveur outils d'administration", "Bastion"],
+      "tags": ["administration", "PAM", "bastion", "accès-privilégié"]
+    },
+    {
+      "id": "BS_RESEAU",
+      "label": "Équipement réseau",
+      "type": "RESEAU",
+      "description": "Équipements assurant la connectivité et le routage des flux réseau.",
+      "exemples": ["Commutateur (switch)", "Routeur", "Passerelle d'entrée", "Borne Wi-Fi"],
+      "tags": ["réseau", "routage", "switching", "wifi"]
+    },
+    {
+      "id": "BS_SECURITE",
+      "label": "Équipement de sécurité",
+      "type": "RESEAU",
+      "description": "Équipements dédiés à la sécurité du réseau et à la détection d'intrusions.",
+      "exemples": ["Pare-feu", "Sonde IDS/IPS", "Passerelle VPN", "WAF", "Proxy"],
+      "tags": ["firewall", "IDS", "IPS", "VPN", "sécurité-réseau"]
+    },
+    {
+      "id": "BS_INDUSTRIEL",
+      "label": "Équipement industriel",
+      "type": "MATERIEL",
+      "description": "Systèmes industriels et équipements de production automatisés.",
+      "exemples": ["Automate programmable (PLC)", "Capteur", "Actionneur", "Système SCADA", "SIS"],
+      "tags": ["OT", "SCADA", "ICS", "industrie", "production"]
+    },
+    {
+      "id": "BS_SERVICE_INFRA",
+      "label": "Service d'infrastructure",
+      "type": "LOGICIEL",
+      "description": "Services essentiels au fonctionnement du SI et à la gestion des ressources.",
+      "exemples": ["Active Directory", "Service DHCP", "Service DNS", "Contrôleur de domaine", "Serveur d'impression"],
+      "tags": ["infrastructure", "AD", "DNS", "DHCP", "annuaire"]
+    },
+    {
+      "id": "BS_APPLICATION",
+      "label": "Application / Service applicatif",
+      "type": "APPLICATION",
+      "description": "Applications métier et services web supportant les processus de l'organisation.",
+      "exemples": ["Serveur web", "Service web", "Serveur d'application", "Messagerie", "Base de données", "ERP", "CRM"],
+      "tags": ["application", "métier", "web", "base-données", "ERP"]
+    },
+    {
+      "id": "BS_MIDDLEWARE",
+      "label": "Intergiciel (Middleware)",
+      "type": "LOGICIEL",
+      "description": "Couches logicielles intermédiaires facilitant l'intégration et l'échange de données.",
+      "exemples": ["EAI", "ETL", "ODBC", "API Gateway", "Message broker"],
+      "tags": ["middleware", "intégration", "ETL", "API"]
+    },
+    {
+      "id": "BS_CLOUD",
+      "label": "Service cloud",
+      "type": "INFRASTRUCTURE",
+      "description": "Services d'informatique en nuage (IaaS, PaaS, SaaS) fournis par des tiers.",
+      "exemples": ["IaaS", "PaaS", "SaaS", "Stockage cloud", "Hébergement cloud"],
+      "tags": ["cloud", "IaaS", "PaaS", "SaaS", "externalisation"]
+    },
+    {
+      "id": "BS_LOCAUX",
+      "label": "Locaux techniques",
+      "type": "LOCAUX",
+      "description": "Espaces physiques hébergeant les équipements informatiques et de télécommunication.",
+      "exemples": ["Datacenter", "Salle serveur", "Local technique", "Baie de brassage"],
+      "tags": ["datacenter", "salle-serveur", "infrastructure-physique"]
+    },
+    {
+      "id": "BS_PERSONNEL",
+      "label": "Personnel / Équipe",
+      "type": "HUMAIN",
+      "description": "Ressources humaines internes ou externes intervenant sur le SI.",
+      "exemples": ["Administrateurs", "Développeurs", "Équipe projet", "Support utilisateur", "RSSI"],
+      "tags": ["RH", "compétences", "équipe", "personnel"]
+    },
+    {
+      "id": "BS_PRESTATAIRE",
+      "label": "Prestataire externe",
+      "type": "ORGANISATION",
+      "description": "Tiers intervenant sur le SI avec des accès et privilèges définis.",
+      "exemples": ["Infogérant", "Intégrateur", "Éditeur", "Hébergeur", "Mainteneur"],
+      "tags": ["prestataire", "tiers", "externalisation", "infogérance"]
+    },
+    {
+      "id": "BS_PROCESSUS",
+      "label": "Processus métier",
+      "type": "ORGANISATION",
+      "description": "Processus organisationnels supportés par le SI.",
+      "exemples": ["Processus de production", "Processus commercial", "Processus RH", "Processus financier"],
+      "tags": ["processus", "métier", "workflow", "organisation"]
+    },
+    {
+      "id": "BS_DONNEES",
+      "label": "Données / Informations",
+      "type": "DONNEES",
+      "description": "Données structurées ou non stockées et traitées par le SI.",
+      "exemples": ["Base de données clients", "Fichiers de configuration", "Données R&D", "Données personnelles"],
+      "tags": ["données", "information", "RGPD", "confidentialité"]
+    }
+  ]
+}

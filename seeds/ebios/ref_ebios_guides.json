@@ -1,0 +1,102 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "source": "ANSSI - Guide EBIOS Risk Manager 2024 + Fiches Methodes",
+    "description": "Extraits des guides officiels ANSSI pour enrichir les prompts IA lors de la generation des ateliers EBIOS RM.",
+    "created_at": "2025-01-01",
+    "table_name": "ref_ebios_guides"
+  },
+  "guides": [
+    {
+      "id": "GUIDE_COMMUN_INTRO",
+      "atelier": "COMMUN",
+      "titre": "Introduction a EBIOS RM",
+      "extrait": "EBIOS Risk Manager est la methode d'analyse de risques de reference de l'ANSSI. Elle permet d'identifier et d'evaluer les risques numeriques et de determiner les mesures de securite adaptees. La methode s'articule autour de 5 ateliers qui guident l'analyse depuis le cadrage jusqu'au traitement des risques.",
+      "reference_pdf": "Guide EBIOS RM - Introduction (p.8-12)"
+    },
+    {
+      "id": "GUIDE_COMMUN_ECHELLE",
+      "atelier": "COMMUN",
+      "titre": "Echelles de gravite et vraisemblance",
+      "extrait": "L'echelle de gravite comporte 4 niveaux : G1 (Mineure) - aucun impact operationnel, G2 (Significative) - mode degrade, G3 (Grave) - mode tres degrade, G4 (Critique) - survie menacee. L'echelle de vraisemblance comporte egalement 4 niveaux : V1 (Minime) - improbable, V2 (Significative) - possible, V3 (Forte) - probable, V4 (Maximale) - quasi-certain.",
+      "reference_pdf": "Guide EBIOS RM - Annexe A (p.45-48)"
+    },
+    {
+      "id": "GUIDE_AT1_VALEURS",
+      "atelier": "AT1",
+      "titre": "Identification des valeurs metier",
+      "extrait": "Les valeurs metier representent le patrimoine informationnel de l'organisation a proteger. Elles peuvent etre de nature PROCESSUS (service, production, R&D) ou INFORMATION (donnees clients, PI, secrets). Recommandation : identifier 5 a 10 valeurs metier essentielles. Chaque valeur doit etre associee a ses besoins de securite (Disponibilite, Integrite, Confidentialite, Tracabilite).",
+      "reference_pdf": "Fiche Methode 1 - Valeurs Metier (p.4-8)"
+    },
+    {
+      "id": "GUIDE_AT1_BIENS",
+      "atelier": "AT1",
+      "titre": "Identification des biens supports",
+      "extrait": "Les biens supports sont les composants du SI qui supportent les valeurs metier. Categories principales : MATERIEL (serveurs, terminaux), LOGICIEL (applications, services), RESEAU (infrastructure), ORGANISATION (processus, prestataires), HUMAIN (personnel), LOCAUX. Recommandation : identifier 1 a 3 biens supports essentiels par valeur metier.",
+      "reference_pdf": "Fiche Methode 2 - Biens Supports (p.4-10)"
+    },
+    {
+      "id": "GUIDE_AT1_ER",
+      "atelier": "AT1",
+      "titre": "Identification des evenements redoutes",
+      "extrait": "Un evenement redoute correspond a une atteinte a une valeur metier selon un critere de securite (C, I, D, T). Il doit etre formule de maniere concrete et evaluable. Exemple : 'Indisponibilite du service client pendant plus de 4 heures'. La gravite est evaluee selon l'echelle G1-G4 en fonction des impacts (operationnels, financiers, juridiques, image).",
+      "reference_pdf": "Fiche Methode 3 - Evenements Redoutes (p.4-8)"
+    },
+    {
+      "id": "GUIDE_AT2_SOURCES",
+      "atelier": "AT2",
+      "titre": "Cartographie des sources de risque",
+      "extrait": "Une source de risque est un element susceptible d'etre a l'origine d'un risque. Categories ANSSI : ETATIQUE (APT), CYBERCRIMINELS, TERRORISTE, ACTIVISTE, CONCURRENT, OFFICINE (mercenaires), AMATEUR, VENGEUR (employe mecontent), MALVEILLANT, FOURNISSEUR, INTERNE. Chaque source est caracterisee par sa motivation, ses ressources et sa sophistication.",
+      "reference_pdf": "Fiche Methode 4 - Sources de Risque (p.4-12)"
+    },
+    {
+      "id": "GUIDE_AT2_COUPLES",
+      "atelier": "AT2",
+      "titre": "Couples source/objectif vise",
+      "extrait": "Un couple SR/OV associe une source de risque a un ou plusieurs objectifs vises. Objectifs types : Espionnage, Prepositionnement, Influence, Entrave/Sabotage, Lucratif, Defi, Vengeance, Ideologique. La pertinence d'un couple (1-4) depend du contexte de l'organisation (secteur, exposition, attractivite). Recommandation : selectionner 3 a 6 couples SR/OV prioritaires.",
+      "reference_pdf": "Fiche Methode 4 - Couples SR/OV (p.13-18)"
+    },
+    {
+      "id": "GUIDE_AT3_SCENARIOS",
+      "atelier": "AT3",
+      "titre": "Construction des scenarios strategiques",
+      "extrait": "Un scenario strategique decrit le cheminement d'une source de risque depuis l'ecosysteme jusqu'a l'atteinte d'une valeur metier via les biens supports. Il doit identifier : la source de risque, l'objectif vise, le chemin d'attaque (parties prenantes traversees), les biens supports cibles, l'evenement redoute declenche. Evaluer la gravite (heritee de l'ER) et la vraisemblance brute.",
+      "reference_pdf": "Fiche Methode 5 - Scenarios Strategiques (p.4-12)"
+    },
+    {
+      "id": "GUIDE_AT3_CHEMIN",
+      "atelier": "AT3",
+      "titre": "Chemins d'attaque ecosysteme",
+      "extrait": "Le chemin d'attaque traverse l'ecosysteme avant d'atteindre le SI de l'organisation. Points d'entree typiques : prestataires (infogérant, editeur), partenaires (clients, fournisseurs), collaborateurs (phishing), perimetres exposes (applications web, VPN). Chaque maillon du chemin peut etre un vecteur d'attaque ou une cible intermediaire.",
+      "reference_pdf": "Guide EBIOS RM - Ecosysteme (p.28-32)"
+    },
+    {
+      "id": "GUIDE_AT4_OPERATIONNELS",
+      "atelier": "AT4",
+      "titre": "Elaboration des scenarios operationnels",
+      "extrait": "Un scenario operationnel detaille les etapes techniques d'un scenario strategique. Structure type : Reconnaissance (collecte d'infos), Armement (preparation outils), Livraison (vecteur initial), Exploitation (vulnerabilite), Installation (persistance), Commande & Controle (C2), Actions sur objectif. Utiliser le framework MITRE ATT&CK pour decrire les techniques.",
+      "reference_pdf": "Fiche Methode 6 - Scenarios Operationnels (p.4-10)"
+    },
+    {
+      "id": "GUIDE_AT4_VRAISEMBLANCE",
+      "atelier": "AT4",
+      "titre": "Evaluation de la vraisemblance operationnelle",
+      "extrait": "La vraisemblance d'un scenario operationnel depend de : la complexite technique requise, les mesures de securite existantes, l'exposition des actifs cibles, les capacites de la source de risque. Echelle V1-V4. La vraisemblance finale du risque combine la vraisemblance strategique et operationnelle.",
+      "reference_pdf": "Fiche Methode 6 - Vraisemblance (p.11-14)"
+    },
+    {
+      "id": "GUIDE_AT5_MATRICE",
+      "atelier": "AT5",
+      "titre": "Construction de la matrice des risques",
+      "extrait": "La matrice des risques croise la gravite (G1-G4) et la vraisemblance (V1-V4). Score = Gravite x Vraisemblance (1-16). Niveaux de criticite : FAIBLE (1-4), MODERE (5-8), ELEVE (9-12), CRITIQUE (13-16). Les risques critiques et eleves doivent faire l'objet de mesures de traitement prioritaires.",
+      "reference_pdf": "Fiche Methode 7 - Matrice des Risques (p.4-8)"
+    },
+    {
+      "id": "GUIDE_AT5_TRAITEMENT",
+      "atelier": "AT5",
+      "titre": "Strategies de traitement des risques",
+      "extrait": "4 strategies de traitement : REDUIRE (mesures de securite), ACCEPTER (risque tolere), TRANSFERER (assurance, externalisation), EVITER (suppression de l'activite). Le risque residuel apres traitement doit etre reevalue (gravite et vraisemblance residuelles). L'objectif est d'atteindre un niveau de risque acceptable pour l'organisation.",
+      "reference_pdf": "Fiche Methode 7 - Traitement (p.9-14)"
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+# ============================================================================
+# BACKEND .dockerignore - CyberGuard AI
+# ============================================================================
+# Fichiers à exclure lors du build Docker du backend
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Tests
+.pytest_cache/
+.coverage
+htmlcov/
+*.cover
+.hypothesis/
+
+# Documentation
+*.md
+docs/
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+
+# Logs
+*.log
+logs/
+*.log.*
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Uploads (ne pas inclure dans l'image)
+uploads/
+temp_uploads/
+
+# Models cache (téléchargés au runtime)
+models/
+*.bin
+*.pt
+*.pth
+
+# Environment files (secrets)
+.env
+.env.*
+!.env.example
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+db/data/
+
+# Node (si présent)
+node_modules/
+
+# Scripts de développement
+scripts/tests/
+scripts/checks/
+*.sh
+
+# Alembic compiled files
+alembic/versions/*.pyc

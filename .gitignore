@@ -1,0 +1,146 @@
+# ===========================================================
+# Cybergard Backend - .gitignore
+# ===========================================================
+
+# ===========================================================
+# SECRETS & ENVIRONMENT (CRITICAL)
+# ===========================================================
+.env
+.env.*
+.env.local
+.env.docker
+!.env.example
+token.txt
+*.pem
+*.key
+credentials.json
+
+# ===========================================================
+# ML MODELS (VERY LARGE - ~2.6 GB)
+# ===========================================================
+models/
+*.safetensors
+*.bin
+!requirements*.txt
+*.pt
+*.pth
+*.onnx
+*.model
+*.h5
+*.pkl
+*.pickle
+.cache/huggingface/
+hub/
+
+# ===========================================================
+# PYTHON
+# ===========================================================
+venv/
+.venv/
+env/
+ENV/
+.Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+
+# Distribution / packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Testing
+.pytest_cache/
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+.hypothesis/
+nosetests.xml
+coverage.xml
+*.cover
+pytest_*.xml
+
+# Type checking
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pytype/
+.pyre/
+
+# ===========================================================
+# DATABASE
+# ===========================================================
+*.db
+*.sqlite
+*.sqlite3
+
+# ===========================================================
+# LOGS
+# ===========================================================
+*.log
+*.log.*
+logs/
+backend.log
+backend_debug.log
+backend_final.log
+backend_new.log
+backend_logs.txt
+last_logs.txt
+
+# ===========================================================
+# IDE & EDITORS
+# ===========================================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+*~
+
+# ===========================================================
+# OS FILES
+# ===========================================================
+.DS_Store
+Thumbs.db
+desktop.ini
+nul
+
+# ===========================================================
+# STORAGE & UPLOADS
+# ===========================================================
+storage/
+uploads/
+*.tmp
+
+# ===========================================================
+# TEMPORARY FILES
+# ===========================================================
+tmp/
+temp/
+.temp/
+*.bak
+*.backup
+download/
+
+# ===========================================================
+# GENERATED FILES
+# ===========================================================
+arborescence.txt
+current_requirements.txt

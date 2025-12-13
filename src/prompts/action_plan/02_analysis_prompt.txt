@@ -1,0 +1,96 @@
+PHASE 2 : ANALYSE ET CONSOLIDATION DES NON-CONFORMITÉS
+
+Tu es chargé d'analyser et de consolider des non-conformités détectées lors d'un audit.
+
+🚨 IMPORTANT - CAMPAGNE MULTI-ORGANISMES :
+Cette campagne d'audit concerne PLUSIEURS entités / organismes / unités / filiales.
+- Il y a actuellement {{nc_count}} non-conformités détectées issues de {{total_responses}} réponses.
+- Chaque non-conformité appartient à UN SEUL organisme identifié par les champs "entity_id" et "entity_name".
+- Tu dois traiter chaque organisme de manière TOTALEMENT INDÉPENDANTE.
+- Tu NE dois JAMAIS regrouper des non-conformités provenant d'entités DIFFÉRENTES.
+
+Mission :
+1. Analyser chaque non-conformité et son contexte
+2. CONSOLIDER les non-conformités similaires UNIQUEMENT si elles appartiennent à la MÊME entité
+3. Évaluer le niveau de risque RÉEL de chaque NC consolidée
+4. Préparer les données pour la génération d'actions (Phase 3)
+
+Données d'entrée :
+{{nonconformities_json}}
+
+Chaque non-conformité contient :
+- **entity_id** : UUID de l'entité concernée (OBLIGATOIRE - À recopier tel quel dans les clusters)
+- **entity_name** : Nom de l'entité (ex: "Entité 1", "Entité 2") (OBLIGATOIRE - À recopier tel quel)
+- **question_id** : UUID unique de la question (À regrouper dans `source_question_ids` lors de la consolidation)
+- **question_text** : Texte de la question
+- **requirement_code** : Code du requirement
+- **requirement_title** : Titre du requirement
+- **domain_name** : Domaine concerné
+- **detected_value** : Valeur détectée (réponse négative, partielle, ou absente)
+- **comment** : Commentaire de l'audité
+- **attachments_count** : Nombre de pièces jointes
+- **attachment_filenames** : Noms des fichiers evidence
+- **attachment_types** : Types de pièces jointes
+
+Règles de consolidation STRICTES :
+- Regrouper les NC qui concernent le MÊME contrôle ou processus ET la MÊME entité
+- Regrouper les NC qui ont la MÊME cause racine ET la MÊME entité
+- 🚨 NE JAMAIS regrouper des NC provenant d'entités DIFFÉRENTES (champ entity_name)
+- Chaque cluster consolidé doit appartenir à UNE SEULE entité (vérifier que tous les entity_id sont identiques)
+- NE PAS regrouper si les domaines ou impacts sont différents
+- Privilégier la QUALITÉ à la QUANTITÉ (10 actions ciblées > 50 actions génériques)
+
+Évaluation du risque :
+Pour chaque NC consolidée, évalue :
+- **Impact** (1-5) : Conséquences si non corrigée (financier, opérationnel, légal, réputationnel)
+- **Probabilité** (1-5) : Chance que le risque se matérialise
+- **Niveau de risque** = Impact × Probabilité
+  - < 5 : FAIBLE (info)
+  - 5-9 : MOYEN (minor)
+  - 10-15 : ÉLEVÉ (major)
+  - > 15 : CRITIQUE (critical)
+
+Format de sortie (JSON) :
+{
+  "consolidated_nonconformities": [
+    {
+      "cluster_id": "NC-CLUSTER-001",
+      "title": "Titre synthétique du cluster",
+      "entity_id": "<COPIER L'UUID EXACT DEPUIS LES DONNÉES D'ENTRÉE>",
+      "entity_name": "<COPIER LE NOM EXACT DEPUIS LES DONNÉES D'ENTRÉE (ex: 'Entité 1', 'Entité 2')>",
+      "domain": "Domaine principal concerné",
+      "related_requirements": ["REQ-001", "REQ-002"],
+      "source_question_ids": ["uuid-q1", "uuid-q2", "uuid-q3"],
+      "root_cause": "Description de la cause racine identifiée",
+      "current_situation": "État actuel constaté",
+      "gap_description": "Description précise de l'écart",
+      "risk_analysis": {
+        "impact": 4,
+        "impact_justification": "Pourquoi cet impact ?",
+        "probability": 3,
+        "probability_justification": "Pourquoi cette probabilité ?",
+        "risk_level": "major",
+        "risk_score": 12
+      },
+      "affected_assets": ["Asset 1", "Asset 2"],
+      "affected_processes": ["Process 1"],
+      "source_data": [...]
+    }
+  ],
+  "statistics": {
+    "initial_count": {{nc_count}},
+    "consolidated_count": 10,
+    "critical_risk": 2,
+    "major_risk": 5,
+    "minor_risk": 3,
+    "overall_risk_level": "élevé"
+  },
+  "analysis_summary": "Synthèse globale de l'analyse en 2-3 phrases"
+}
+
+IMPORTANT :
+- Réponds UNIQUEMENT avec le JSON, sans texte avant ou après
+- Sois précis et factuel dans tes justifications
+- Base-toi sur les données fournies, ne fais pas d'hypothèses
+- **OBLIGATOIRE** : Le champ `source_question_ids` doit contenir les UUIDs réels des questions consolidées (ex: ["uuid-1", "uuid-2"])
+- Si tu consolides 3 NCs avec question_id "uuid-a", "uuid-b", "uuid-c", alors source_question_ids = ["uuid-a", "uuid-b", "uuid-c"]

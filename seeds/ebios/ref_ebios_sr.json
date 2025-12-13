@@ -1,0 +1,121 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "source": "ANSSI - Guide EBIOS Risk Manager 2024 + Fiches Méthodes",
+    "description": "Référentiel des sources de risque types selon la méthode EBIOS RM",
+    "created_at": "2025-01-01",
+    "table_name": "ref_ebios_sr"
+  },
+  "sources_risque": [
+    {
+      "id": "SR_ETATIQUE",
+      "label": "État / Agence de renseignement",
+      "categorie": "ETATIQUE",
+      "description": "États ou agences de renseignement menant des attaques sophistiquées sur un temps long, avec des ressources stables et des capacités à découvrir des vulnérabilités 0-day. Capables d'infiltrer des réseaux isolés et de mener des attaques sur la chaîne d'approvisionnement.",
+      "motivations": ["Espionnage", "Prépositionnement stratégique", "Influence géopolitique", "Sabotage"],
+      "ressources": "TRES_ELEVEES",
+      "sophistication": "TRES_ELEVEE",
+      "tags": ["APT", "cyber-espionnage", "état-nation", "supply-chain"]
+    },
+    {
+      "id": "SR_CRIME_ORGANISE",
+      "label": "Crime organisé / Cybercriminels",
+      "categorie": "CYBERCRIMINELS",
+      "description": "Organisations cybercriminelles (mafias, gangs, officines) spécialisées dans les arnaques en ligne, rançongiciels, exploitation de botnets. Moyens sophistiqués avec capacité d'achat de vulnérabilités 0-day.",
+      "motivations": ["Gain financier", "Extorsion", "Fraude", "Revente de données"],
+      "ressources": "ELEVEES",
+      "sophistication": "ELEVEE",
+      "tags": ["ransomware", "botnet", "fraude", "rançon"]
+    },
+    {
+      "id": "SR_TERRORISTE",
+      "label": "Terroriste / Cybermilice",
+      "categorie": "TERRORISTE",
+      "description": "Cyberterroristes et cybermilices menant des attaques peu sophistiquées mais avec détermination à des fins de déstabilisation et de destruction. Cibles typiques : services d'urgence, systèmes industriels.",
+      "motivations": ["Déstabilisation", "Destruction", "Panique sociale", "Propagande"],
+      "ressources": "MODEREES",
+      "sophistication": "MODEREE",
+      "tags": ["déni-de-service", "sabotage", "terreur"]
+    },
+    {
+      "id": "SR_ACTIVISTE",
+      "label": "Activiste idéologique / Hacktiviste",
+      "categorie": "ACTIVISTE",
+      "description": "Cyber-hacktivistes, groupements d'intérêt ou sectes motivés par des intentions idéologiques. Utilisent massivement les réseaux sociaux comme caisse de résonance.",
+      "motivations": ["Véhiculer une idéologie", "Dénoncer des pratiques", "Influencer l'opinion", "Nuire à la réputation"],
+      "ressources": "MODEREES",
+      "sophistication": "MODEREE",
+      "tags": ["hacktivisme", "défiguration", "réseaux-sociaux", "dénonciation"]
+    },
+    {
+      "id": "SR_CONCURRENT",
+      "label": "Concurrent / Espionnage industriel",
+      "categorie": "CONCURRENT",
+      "description": "Entreprises concurrentes cherchant à obtenir un avantage compétitif par le vol d'informations stratégiques, de R&D, de données clients ou de savoir-faire.",
+      "motivations": ["Avantage concurrentiel", "Vol de propriété intellectuelle", "Espionnage économique"],
+      "ressources": "VARIABLES",
+      "sophistication": "VARIABLE",
+      "tags": ["espionnage-industriel", "vol-données", "R&D", "secrets-commerciaux"]
+    },
+    {
+      "id": "SR_OFFICINE",
+      "label": "Officine spécialisée / Cybermercenaire",
+      "categorie": "OFFICINE",
+      "description": "Profil de cybermercenaire avec capacités techniques élevées. Propose des services de piratage à la demande. À l'origine de nombreux outils et kits d'attaques disponibles en ligne.",
+      "motivations": ["Gain financier", "Défi technique", "Reconnaissance"],
+      "ressources": "ELEVEES",
+      "sophistication": "TRES_ELEVEE",
+      "tags": ["mercenaire", "hacking-as-a-service", "outils-attaque"]
+    },
+    {
+      "id": "SR_AMATEUR",
+      "label": "Amateur / Script-kiddie",
+      "categorie": "AMATEUR",
+      "description": "Hacker script-kiddie ou individu avec de bonnes connaissances informatiques, motivé par le défi, l'amusement ou la reconnaissance sociale. Utilise des kits d'attaques accessibles en ligne.",
+      "motivations": ["Défi technique", "Amusement", "Reconnaissance sociale"],
+      "ressources": "FAIBLES",
+      "sophistication": "FAIBLE",
+      "tags": ["script-kiddie", "kits-attaque", "opportuniste"]
+    },
+    {
+      "id": "SR_VENGEUR",
+      "label": "Vengeur / Employé mécontent",
+      "categorie": "VENGEUR",
+      "description": "Individu animé par un esprit de vengeance ou sentiment d'injustice (salarié licencié, prestataire mécontent). Se caractérise par sa détermination et sa connaissance interne des systèmes.",
+      "motivations": ["Vengeance", "Sentiment d'injustice", "Nuisance"],
+      "ressources": "FAIBLES",
+      "sophistication": "VARIABLE",
+      "tags": ["insider", "menace-interne", "ex-employé", "prestataire"]
+    },
+    {
+      "id": "SR_MALVEILLANT_PATHO",
+      "label": "Malveillant pathologique / Opportuniste",
+      "categorie": "MALVEILLANT",
+      "description": "Profil opportuniste ou pathologique guidé par l'appât du gain (concurrent déloyal, client malhonnête, escroc, fraudeur). Peut sous-traiter l'attaque ou corrompre une source interne.",
+      "motivations": ["Gain personnel", "Fraude", "Escroquerie"],
+      "ressources": "VARIABLES",
+      "sophistication": "VARIABLE",
+      "tags": ["opportuniste", "fraude", "corruption", "escroquerie"]
+    },
+    {
+      "id": "SR_FOURNISSEUR",
+      "label": "Fournisseur / Prestataire négligent",
+      "categorie": "FOURNISSEUR",
+      "description": "Fournisseur ou prestataire avec accès privilégié au SI mais niveau de sécurité insuffisant. Vecteur d'attaque par rebond pour atteindre l'organisation cible.",
+      "motivations": ["Non intentionnel - vecteur d'attaque"],
+      "ressources": "N/A",
+      "sophistication": "N/A",
+      "tags": ["supply-chain", "tiers", "sous-traitant", "accès-privilégié"]
+    },
+    {
+      "id": "SR_EMPLOYE_INTERNE",
+      "label": "Employé interne / Menace interne",
+      "categorie": "INTERNE",
+      "description": "Collaborateur actif de l'organisation pouvant être négligent, corrompu ou malveillant. Dispose d'accès légitimes et de connaissance des processus internes.",
+      "motivations": ["Négligence", "Corruption", "Malveillance", "Erreur humaine"],
+      "ressources": "VARIABLES",
+      "sophistication": "VARIABLE",
+      "tags": ["insider-threat", "négligence", "corruption", "erreur-humaine"]
+    }
+  ]
+}

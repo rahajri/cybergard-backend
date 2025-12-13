@@ -1,0 +1,123 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "source": "ANSSI - Guide EBIOS Risk Manager 2024 + Fiches Methodes",
+    "description": "Referentiel des objectifs vises types selon la methode EBIOS RM. Les objectifs vises representent les finalites recherchees par les sources de risque.",
+    "created_at": "2025-01-01",
+    "table_name": "ref_ebios_ov"
+  },
+  "objectifs_vises": [
+    {
+      "id": "OV_ESPIONNAGE",
+      "label": "Espionnage",
+      "description": "Collecte clandestine d'informations strategiques, economiques, scientifiques ou militaires. Vise a obtenir un avantage informationnel sans se faire detecter.",
+      "finalites": [
+        "Connaitre les intentions strategiques",
+        "Voler des secrets industriels",
+        "Anticiper les decisions concurrentes",
+        "Collecter du renseignement economique"
+      ],
+      "secteurs_cibles": ["Defense", "Energie", "Finance", "Technologie", "Recherche"],
+      "sources_typiques": ["SR_ETATIQUE", "SR_CONCURRENT", "SR_OFFICINE"],
+      "tags": ["renseignement", "vol-information", "infiltration", "APT"]
+    },
+    {
+      "id": "OV_PREPOSITIONNEMENT",
+      "label": "Prepositionnement strategique",
+      "description": "Installation discrete et durable dans les systemes cibles pour pouvoir agir ulterieurement. Phase preparatoire a une action future (sabotage, espionnage massif).",
+      "finalites": [
+        "Maintenir un acces persistant",
+        "Preparer une action future",
+        "Cartographier les systemes cibles",
+        "Installer des portes derobees"
+      ],
+      "secteurs_cibles": ["Infrastructures critiques", "Defense", "Energie", "Telecommunications"],
+      "sources_typiques": ["SR_ETATIQUE", "SR_CRIME_ORGANISE"],
+      "tags": ["APT", "persistance", "backdoor", "lateralisation"]
+    },
+    {
+      "id": "OV_INFLUENCE",
+      "label": "Influence et desinformation",
+      "description": "Manipulation de l'information pour influencer l'opinion publique, destabiliser des institutions ou nuire a la reputation d'une organisation.",
+      "finalites": [
+        "Destabiliser l'opinion publique",
+        "Nuire a la reputation",
+        "Propager de fausses informations",
+        "Manipuler des processus decisionnels"
+      ],
+      "secteurs_cibles": ["Medias", "Politique", "Institutions publiques", "Grandes entreprises"],
+      "sources_typiques": ["SR_ETATIQUE", "SR_ACTIVISTE", "SR_TERRORISTE"],
+      "tags": ["desinformation", "fake-news", "reputation", "manipulation"]
+    },
+    {
+      "id": "OV_ENTRAVE",
+      "label": "Entrave et sabotage",
+      "description": "Degradation ou destruction des capacites operationnelles de la cible. Vise a perturber, ralentir ou empecher le fonctionnement normal des systemes.",
+      "finalites": [
+        "Perturber les operations",
+        "Detruire des donnees critiques",
+        "Paralyser les systemes",
+        "Causer des degats materiels"
+      ],
+      "secteurs_cibles": ["Industrie", "Energie", "Transports", "Sante", "Services publics"],
+      "sources_typiques": ["SR_ETATIQUE", "SR_TERRORISTE", "SR_ACTIVISTE", "SR_VENGEUR"],
+      "tags": ["sabotage", "destruction", "disruption", "DDoS"]
+    },
+    {
+      "id": "OV_LUCRATIF",
+      "label": "Gain financier",
+      "description": "Recherche de profits monetaires directs ou indirects par le vol, l'extorsion, la fraude ou la revente de donnees.",
+      "finalites": [
+        "Extorquer une rancon",
+        "Voler des fonds",
+        "Revendre des donnees",
+        "Commettre des fraudes"
+      ],
+      "secteurs_cibles": ["Finance", "Commerce", "Sante", "Tous secteurs"],
+      "sources_typiques": ["SR_CRIME_ORGANISE", "SR_MALVEILLANT_PATHO", "SR_OFFICINE"],
+      "tags": ["ransomware", "fraude", "vol", "extorsion", "monetisation"]
+    },
+    {
+      "id": "OV_DEFI",
+      "label": "Defi technique",
+      "description": "Motivation par le challenge intellectuel, la prouesse technique ou la recherche de reconnaissance dans la communaute des hackers.",
+      "finalites": [
+        "Demontrer ses capacites",
+        "Gagner en reputation",
+        "Relever un defi technique",
+        "Explorer des systemes"
+      ],
+      "secteurs_cibles": ["Tous secteurs", "Entreprises technologiques"],
+      "sources_typiques": ["SR_AMATEUR", "SR_OFFICINE"],
+      "tags": ["script-kiddie", "challenge", "reconnaissance", "curiosite"]
+    },
+    {
+      "id": "OV_VENGEANCE",
+      "label": "Vengeance personnelle",
+      "description": "Action motivee par un sentiment d'injustice, de frustration ou de rancune personnelle envers l'organisation cible.",
+      "finalites": [
+        "Se venger d'un licenciement",
+        "Punir une injustice percue",
+        "Nuire a son ancien employeur",
+        "Divulguer des informations compromettantes"
+      ],
+      "secteurs_cibles": ["Tous secteurs"],
+      "sources_typiques": ["SR_VENGEUR", "SR_EMPLOYE_INTERNE"],
+      "tags": ["insider", "rancune", "ex-employe", "divulgation"]
+    },
+    {
+      "id": "OV_IDEOLOGIQUE",
+      "label": "Conviction ideologique",
+      "description": "Action guidee par des convictions politiques, religieuses, ecologiques ou sociales. Vise a promouvoir une cause ou denoncer des pratiques.",
+      "finalites": [
+        "Promouvoir une cause",
+        "Denoncer des pratiques",
+        "Attirer l'attention mediatique",
+        "Punir des organisations jugees coupables"
+      ],
+      "secteurs_cibles": ["Multinationales", "Industrie polluante", "Gouvernements", "Institutions financieres"],
+      "sources_typiques": ["SR_ACTIVISTE", "SR_TERRORISTE"],
+      "tags": ["hacktivisme", "militant", "ideologie", "cause"]
+    }
+  ]
+}

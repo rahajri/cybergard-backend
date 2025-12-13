@@ -1,0 +1,662 @@
+{
+  "templates": [
+    {
+      "code": "SYSTEM_EBIOS_CONSOLIDATED",
+      "name": "Rapport EBIOS RM Consolidé",
+      "description": "Rapport EBIOS Risk Manager consolidé conforme ANSSI - Vue complète de l'analyse de risques",
+      "template_type": "ebios",
+      "template_category": "ebios",
+      "report_scope": "consolidated",
+      "is_system": true,
+      "is_default": true,
+      "page_size": "A4",
+      "orientation": "portrait",
+      "margins": {
+        "top": 20,
+        "right": 15,
+        "bottom": 20,
+        "left": 15
+      },
+      "color_scheme": {
+        "primary": "#dc2626",
+        "secondary": "#991b1b",
+        "accent": "#f87171",
+        "danger": "#dc2626",
+        "warning": "#f59e0b",
+        "success": "#22c55e",
+        "text": "#1F2937",
+        "background": "#FFFFFF",
+        "header_bg": "#fee2e2",
+        "title_color": "#7f1d1d"
+      },
+      "fonts": {
+        "title": {"family": "Helvetica, Arial, sans-serif", "size": 24, "weight": "bold"},
+        "heading1": {"family": "Helvetica, Arial, sans-serif", "size": 18, "weight": "bold"},
+        "heading2": {"family": "Helvetica, Arial, sans-serif", "size": 14, "weight": "bold"},
+        "heading3": {"family": "Helvetica, Arial, sans-serif", "size": 12, "weight": "bold"},
+        "body": {"family": "Helvetica, Arial, sans-serif", "size": 10, "weight": "normal"}
+      },
+      "default_logo": "TENANT",
+      "structure": [
+        {
+          "widget_type": "cover",
+          "widget_key": "ebios_cover",
+          "position": 1,
+          "config": {
+            "title": "Rapport EBIOS RM",
+            "subtitle": "Analyse des Risques",
+            "show_logo": true,
+            "show_date": true,
+            "show_organization": true,
+            "footer_text": "Méthode EBIOS Risk Manager - ANSSI"
+          }
+        },
+        {
+          "widget_type": "toc",
+          "widget_key": "ebios_toc",
+          "position": 2,
+          "config": {
+            "title": "Table des matières",
+            "max_depth": 2
+          }
+        },
+        {
+          "widget_type": "page_break",
+          "widget_key": "break_1",
+          "position": 3,
+          "config": {}
+        },
+        {
+          "widget_type": "section",
+          "widget_key": "section_executive",
+          "position": 4,
+          "config": {
+            "title": "Résumé Exécutif",
+            "level": 1
+          }
+        },
+        {
+          "widget_type": "ai_summary",
+          "widget_key": "ai_executive_summary",
+          "position": 5,
+          "config": {
+            "section": "executive_summary",
+            "title": "Résumé Exécutif",
+            "show_title": false,
+            "tone": "executive"
+          }
+        },
+        {
+          "widget_type": "page_break",
+          "widget_key": "break_2",
+          "position": 6,
+          "config": {}
+        },
+        {
+          "widget_type": "section",
+          "widget_key": "section_context",
+          "position": 7,
+          "config": {
+            "title": "Contexte et Périmètre",
+            "level": 1
+          }
+        },
+        {
+          "widget_type": "paragraph",
+          "widget_key": "context_intro",
+          "position": 8,
+          "config": {
+            "text": "Cette section présente le contexte de l'analyse de risques et définit le périmètre de l'étude EBIOS RM."
+          }
+        },
+        {
+          "widget_type": "page_break",
+          "widget_key": "break_3",
+          "position": 9,
+          "config": {}
+        },
+        {
+          "widget_type": "section",
+          "widget_key": "section_at1",
+          "position": 10,
+          "config": {
+            "title": "Atelier 1 - Cadrage et Socle de Sécurité",
+            "level": 1
+          }
+        },
+        {
+          "widget_type": "ai_summary",
+          "widget_key": "ai_at1_summary",
+          "position": 11,
+          "config": {
+            "section": "at1_summary",
+            "title": "Synthèse AT1",
+            "show_title": false,
+            "tone": "executive"
+          }
+        },
+        {
+          "widget_type": "title",
+          "widget_key": "title_business_values",
+          "position": 12,
+          "config": {
+            "text": "Valeurs Métier",
+            "level": 2
+          }
+        },
+        {
+          "widget_type": "ebios_table",
+          "widget_key": "table_business_values",
+          "position": 13,
+          "config": {
+            "data_source": "at1.business_values",
+            "columns": [
+              {"key": "code", "header": "Réf", "width": "10%"},
+              {"key": "label", "header": "Valeur Métier", "width": "25%"},
+              {"key": "description", "header": "Description", "width": "45%"},
+              {"key": "criticality", "header": "Criticité", "width": "20%", "style": "badge"}
+            ],
+            "empty_message": "Aucune valeur métier identifiée"
+          }
+        },
+        {
+          "widget_type": "title",
+          "widget_key": "title_assets",
+          "position": 14,
+          "config": {
+            "text": "Biens Supports",
+            "level": 2
+          }
+        },
+        {
+          "widget_type": "ebios_table",
+          "widget_key": "table_assets",
+          "position": 15,
+          "config": {
+            "data_source": "at1.assets",
+            "columns": [
+              {"key": "code", "header": "Réf", "width": "10%"},
+              {"key": "label", "header": "Bien Support", "width": "25%"},
+              {"key": "asset_type", "header": "Type", "width": "15%"},
+              {"key": "description", "header": "Description", "width": "50%"}
+            ],
+            "empty_message": "Aucun bien support identifié"
+          }
+        },
+        {
+          "widget_type": "title",
+          "widget_key": "title_feared_events",
+          "position": 16,
+          "config": {
+            "text": "Événements Redoutés",
+            "level": 2
+          }
+        },
+        {
+          "widget_type": "ebios_table",
+          "widget_key": "table_feared_events",
+          "position": 17,
+          "config": {
+            "data_source": "at1.feared_events",
+            "columns": [
+              {"key": "code", "header": "Réf", "width": "10%"},
+              {"key": "label", "header": "Événement Redouté", "width": "35%"},
+              {"key": "dimension", "header": "Dimension", "width": "15%"},
+              {"key": "severity", "header": "Gravité", "width": "15%", "style": "severity"},
+              {"key": "description", "header": "Description", "width": "25%"}
+            ],
+            "empty_message": "Aucun événement redouté identifié"
+          }
+        },
+        {
+          "widget_type": "page_break",
+          "widget_key": "break_4",
+          "position": 18,
+          "config": {}
+        },
+        {
+          "widget_type": "section",
+          "widget_key": "section_at2",
+          "position": 19,
+          "config": {
+            "title": "Atelier 2 - Sources de Risques",
+            "level": 1
+          }
+        },
+        {
+          "widget_type": "ai_summary",
+          "widget_key": "ai_at2_summary",
+          "position": 20,
+          "config": {
+            "section": "at2_summary",
+            "title": "Synthèse AT2",
+            "show_title": false,
+            "tone": "executive"
+          }
+        },
+        {
+          "widget_type": "ebios_table",
+          "widget_key": "table_risk_sources",
+          "position": 21,
+          "config": {
+            "data_source": "at2.risk_sources",
+            "columns": [
+              {"key": "code", "header": "Réf", "width": "10%"},
+              {"key": "label", "header": "Source de Risque", "width": "25%"},
+              {"key": "description", "header": "Description", "width": "40%"},
+              {"key": "relevance", "header": "Pertinence", "width": "15%", "style": "severity"},
+              {"key": "is_selected", "header": "Retenue", "width": "10%", "style": "boolean"}
+            ],
+            "empty_message": "Aucune source de risque identifiée"
+          }
+        },
+        {
+          "widget_type": "page_break",
+          "widget_key": "break_5",
+          "position": 22,
+          "config": {}
+        },
+        {
+          "widget_type": "section",
+          "widget_key": "section_at3",
+          "position": 23,
+          "config": {
+            "title": "Atelier 3 - Scénarios Stratégiques",
+            "level": 1
+          }
+        },
+        {
+          "widget_type": "paragraph",
+          "widget_key": "at3_intro",
+          "position": 24,
+          "config": {
+            "text": "Les scénarios stratégiques décrivent les chemins d'attaque de haut niveau combinant une source de risque, une vulnérabilité stratégique et un événement redouté."
+          }
+        },
+        {
+          "widget_type": "ebios_table",
+          "widget_key": "table_strategic_scenarios",
+          "position": 25,
+          "config": {
+            "data_source": "at3.strategic_scenarios",
+            "columns": [
+              {"key": "code", "header": "Réf", "width": "8%"},
+              {"key": "title", "header": "Titre", "width": "22%"},
+              {"key": "risk_source.code", "header": "Source", "width": "10%"},
+              {"key": "vulnerability_label", "header": "Vulnérabilité Stratégique", "width": "25%"},
+              {"key": "severity", "header": "G", "width": "7%", "style": "severity"},
+              {"key": "likelihood", "header": "V", "width": "7%", "style": "severity"},
+              {"key": "risk_level", "header": "Niveau", "width": "11%", "style": "risk_level"}
+            ],
+            "empty_message": "Aucun scénario stratégique identifié"
+          }
+        },
+        {
+          "widget_type": "page_break",
+          "widget_key": "break_6",
+          "position": 26,
+          "config": {}
+        },
+        {
+          "widget_type": "section",
+          "widget_key": "section_at4",
+          "position": 27,
+          "config": {
+            "title": "Atelier 4 - Scénarios Opérationnels",
+            "level": 1
+          }
+        },
+        {
+          "widget_type": "paragraph",
+          "widget_key": "at4_intro",
+          "position": 28,
+          "config": {
+            "text": "Les scénarios opérationnels détaillent les chaînes d'attaque techniques déclinées à partir des scénarios stratégiques."
+          }
+        },
+        {
+          "widget_type": "ebios_table",
+          "widget_key": "table_operational_scenarios",
+          "position": 29,
+          "config": {
+            "data_source": "at4.operational_scenarios",
+            "columns": [
+              {"key": "code", "header": "Réf", "width": "8%"},
+              {"key": "title", "header": "Titre", "width": "22%"},
+              {"key": "strategic_scenario.code", "header": "SS Parent", "width": "10%"},
+              {"key": "severity", "header": "G", "width": "10%", "style": "severity"},
+              {"key": "likelihood", "header": "V", "width": "10%", "style": "severity"},
+              {"key": "risk_level", "header": "Niveau", "width": "15%", "style": "risk_level"}
+            ],
+            "empty_message": "Aucun scénario opérationnel identifié"
+          }
+        },
+        {
+          "widget_type": "page_break",
+          "widget_key": "break_7",
+          "position": 30,
+          "config": {}
+        },
+        {
+          "widget_type": "section",
+          "widget_key": "section_at5",
+          "position": 31,
+          "config": {
+            "title": "Atelier 5 - Évaluation et Matrice des Risques",
+            "level": 1
+          }
+        },
+        {
+          "widget_type": "paragraph",
+          "widget_key": "at5_intro",
+          "position": 32,
+          "config": {
+            "text": "La matrice des risques positionne l'ensemble des scénarios selon leur gravité et vraisemblance, permettant d'identifier les risques prioritaires à traiter."
+          }
+        },
+        {
+          "widget_type": "ebios_risk_matrix",
+          "widget_key": "risk_matrix",
+          "position": 33,
+          "config": {
+            "title": "Matrice des Risques",
+            "show_legend": true,
+            "levels": {
+              "critical": {"min": 12, "max": 16, "label": "Critique", "color": "#dc2626"},
+              "high": {"min": 8, "max": 11, "label": "Important", "color": "#f97316"},
+              "medium": {"min": 4, "max": 7, "label": "Modéré", "color": "#eab308"},
+              "low": {"min": 1, "max": 3, "label": "Faible", "color": "#22c55e"}
+            }
+          }
+        },
+        {
+          "widget_type": "ai_summary",
+          "widget_key": "ai_risk_analysis",
+          "position": 34,
+          "config": {
+            "section": "risk_analysis",
+            "title": "Analyse des Risques",
+            "show_title": true,
+            "tone": "executive"
+          }
+        },
+        {
+          "widget_type": "page_break",
+          "widget_key": "break_8",
+          "position": 35,
+          "config": {}
+        },
+        {
+          "widget_type": "section",
+          "widget_key": "section_at6",
+          "position": 36,
+          "config": {
+            "title": "Atelier 6 - Plan de Traitement des Risques",
+            "level": 1
+          }
+        },
+        {
+          "widget_type": "title",
+          "widget_key": "title_strategies",
+          "position": 37,
+          "config": {
+            "text": "Stratégies de Traitement",
+            "level": 2
+          }
+        },
+        {
+          "widget_type": "ebios_table",
+          "widget_key": "table_strategies",
+          "position": 38,
+          "config": {
+            "data_source": "at6.strategies",
+            "columns": [
+              {"key": "scenario_ref", "header": "Scénario", "width": "15%"},
+              {"key": "risk_level", "header": "Niveau", "width": "15%", "style": "risk_level"},
+              {"key": "strategie", "header": "Stratégie", "width": "20%", "style": "strategy"},
+              {"key": "justification_strategie", "header": "Justification", "width": "50%"}
+            ],
+            "empty_message": "Aucune stratégie définie"
+          }
+        },
+        {
+          "widget_type": "title",
+          "widget_key": "title_actions_summary",
+          "position": 39,
+          "config": {
+            "text": "Actions Proposées - Vue Synthétique",
+            "level": 2
+          }
+        },
+        {
+          "widget_type": "ebios_table",
+          "widget_key": "table_actions",
+          "position": 40,
+          "config": {
+            "data_source": "at6.actions",
+            "columns": [
+              {"key": "code_action", "header": "Code", "width": "12%"},
+              {"key": "titre", "header": "Action", "width": "28%"},
+              {"key": "categorie", "header": "Catégorie", "width": "15%", "style": "category"},
+              {"key": "priorite", "header": "Priorité", "width": "12%", "style": "priority"},
+              {"key": "scenario_ref", "header": "Risque", "width": "12%"},
+              {"key": "responsable_suggere", "header": "Responsable", "width": "21%"}
+            ],
+            "empty_message": "Aucune action proposée"
+          }
+        },
+        {
+          "widget_type": "title",
+          "widget_key": "title_actions_detail",
+          "position": 41,
+          "config": {
+            "text": "Fiches Actions Détaillées",
+            "level": 2
+          }
+        },
+        {
+          "widget_type": "ebios_action_cards",
+          "widget_key": "action_cards",
+          "position": 42,
+          "config": {
+            "data_source": "at6.actions",
+            "fields": ["code_action", "titre", "description", "categorie", "priorite", "responsable_suggere", "delai_suggere"],
+            "show_all": true
+          }
+        },
+        {
+          "widget_type": "page_break",
+          "widget_key": "break_9",
+          "position": 43,
+          "config": {}
+        },
+        {
+          "widget_type": "section",
+          "widget_key": "section_conclusion",
+          "position": 44,
+          "config": {
+            "title": "Conclusion",
+            "level": 1
+          }
+        },
+        {
+          "widget_type": "ai_summary",
+          "widget_key": "ai_conclusion",
+          "position": 45,
+          "config": {
+            "section": "conclusion",
+            "title": "Conclusion",
+            "show_title": false,
+            "tone": "executive"
+          }
+        },
+        {
+          "widget_type": "page_break",
+          "widget_key": "break_10",
+          "position": 46,
+          "config": {}
+        },
+        {
+          "widget_type": "section",
+          "widget_key": "section_annexes",
+          "position": 47,
+          "config": {
+            "title": "Annexes",
+            "level": 1
+          }
+        },
+        {
+          "widget_type": "title",
+          "widget_key": "title_annexe_sr_vuln_er",
+          "position": 48,
+          "config": {
+            "text": "Annexe 1 - Mapping Sources de Risque / Vulnérabilités / Événements Redoutés",
+            "level": 2
+          }
+        },
+        {
+          "widget_type": "ebios_table",
+          "widget_key": "table_mapping_sr_vuln_er",
+          "position": 49,
+          "config": {
+            "data_source": "at3.strategic_scenarios",
+            "columns": [
+              {"key": "risk_source.code", "header": "Source (SR)", "width": "15%"},
+              {"key": "vulnerability_label", "header": "Vulnérabilité Stratégique", "width": "45%"},
+              {"key": "feared_event.code", "header": "Événement Redouté (ER)", "width": "15%"},
+              {"key": "code", "header": "Scénario (SS)", "width": "15%"}
+            ],
+            "empty_message": "Aucun mapping disponible"
+          }
+        },
+        {
+          "widget_type": "footer",
+          "widget_key": "ebios_footer",
+          "position": 50,
+          "config": {
+            "show_page_number": true,
+            "show_date": true,
+            "text": "Rapport EBIOS RM - Méthode ANSSI - Généré par Cybergard AI"
+          }
+        }
+      ]
+    },
+    {
+      "code": "SYSTEM_EBIOS_INDIVIDUAL",
+      "name": "Rapport EBIOS RM Individuel",
+      "description": "Fiche individuelle par scénario de risque EBIOS RM",
+      "template_type": "ebios",
+      "template_category": "ebios",
+      "report_scope": "entity",
+      "is_system": true,
+      "is_default": false,
+      "page_size": "A4",
+      "orientation": "portrait",
+      "margins": {
+        "top": 20,
+        "right": 15,
+        "bottom": 20,
+        "left": 15
+      },
+      "color_scheme": {
+        "primary": "#dc2626",
+        "secondary": "#991b1b",
+        "accent": "#f87171",
+        "danger": "#dc2626",
+        "warning": "#f59e0b",
+        "success": "#22c55e",
+        "text": "#1F2937",
+        "background": "#FFFFFF",
+        "header_bg": "#fee2e2",
+        "title_color": "#7f1d1d"
+      },
+      "fonts": {
+        "title": {"family": "Helvetica, Arial, sans-serif", "size": 24, "weight": "bold"},
+        "heading1": {"family": "Helvetica, Arial, sans-serif", "size": 18, "weight": "bold"},
+        "heading2": {"family": "Helvetica, Arial, sans-serif", "size": 14, "weight": "bold"},
+        "heading3": {"family": "Helvetica, Arial, sans-serif", "size": 12, "weight": "bold"},
+        "body": {"family": "Helvetica, Arial, sans-serif", "size": 10, "weight": "normal"}
+      },
+      "default_logo": "TENANT",
+      "structure": [
+        {
+          "widget_type": "scenario_header",
+          "widget_key": "scenario_header",
+          "position": 1,
+          "config": {
+            "fields": ["code", "title", "type", "risk_level"],
+            "show_logo": true
+          }
+        },
+        {
+          "widget_type": "scenario_description",
+          "widget_key": "scenario_desc",
+          "position": 2,
+          "config": {
+            "field": "description",
+            "show_context": true
+          }
+        },
+        {
+          "widget_type": "risk_source_card",
+          "widget_key": "risk_source",
+          "position": 3,
+          "config": {
+            "title": "Source de Risque",
+            "fields": ["code", "label", "description", "relevance"]
+          }
+        },
+        {
+          "widget_type": "risk_evaluation",
+          "widget_key": "risk_eval",
+          "position": 4,
+          "config": {
+            "title": "Évaluation du Risque",
+            "fields": ["severity", "likelihood", "risk_level"],
+            "show_scale": true,
+            "show_visual": true
+          }
+        },
+        {
+          "widget_type": "feared_event_card",
+          "widget_key": "feared_event",
+          "position": 5,
+          "config": {
+            "title": "Événement Redouté",
+            "fields": ["code", "label", "severity", "dimension"]
+          }
+        },
+        {
+          "widget_type": "title",
+          "widget_key": "title_actions",
+          "position": 6,
+          "config": {
+            "text": "Actions Associées",
+            "level": 2
+          }
+        },
+        {
+          "widget_type": "ebios_action_cards",
+          "widget_key": "scenario_actions",
+          "position": 7,
+          "config": {
+            "data_source": "scenario.actions",
+            "fields": ["code_action", "titre", "description", "categorie", "priorite"],
+            "show_all": false,
+            "filter_by_scenario": true
+          }
+        },
+        {
+          "widget_type": "footer",
+          "widget_key": "scenario_footer",
+          "position": 8,
+          "config": {
+            "show_page_number": true,
+            "show_date": true,
+            "text": "Fiche Scénario EBIOS RM - Cybergard AI"
+          }
+        }
+      ]
+    }
+  ]
+}
